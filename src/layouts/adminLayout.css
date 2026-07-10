@@ -1,0 +1,849 @@
+/* =====================================
+   CORE LAYOUT
+===================================== */
+
+/* ===========================
+   SIDEBAR DROPDOWN
+=========================== */
+/* Sidebar Brand */
+.sidebar-brand {
+    display: flex;
+    align-items: center;
+    /* flex-direction: column; */
+    gap: 8px;
+    padding: 20px;
+    height: 80px;
+    border-bottom: 1px solid rgba(255,255,255,0.1);
+}
+
+/* Logo */
+.sidebar-logo {
+    width: 60px;
+    height: 60px;
+    object-fit: contain;
+    border-radius: 10px;
+}
+
+/* Brand Text */
+.brand-text {
+    display: flex;
+    flex-direction: column;
+}
+
+.brand-text h3 {
+    margin: 0;
+    color: #ffffff;
+    font-size: 14px;
+    font-weight: 700;
+    letter-spacing: 0.5px;
+}
+
+.brand-text span {
+    color: #b8c7d9;
+    font-size: 13px;
+    margin-top: 3px;
+}
+
+
+/* Hover Effect */
+.sidebar-brand:hover .sidebar-logo {
+    transform: scale(1.05);
+    transition: 0.3s ease;
+}
+.dropdown-btn {
+
+    width:100%;
+
+    border:none;
+
+    background:none;
+
+    cursor:pointer;
+
+    justify-content:space-between;
+
+}
+
+
+
+
+
+.submenu {
+
+    list-style:none;
+
+    padding-left:20px;
+
+    margin-top:5px;
+
+}
+
+
+
+.submenu-link {
+
+
+    display:block;
+
+    padding:10px 15px;
+
+
+    color:#94a3b8;
+
+
+    text-decoration:none;
+
+
+    font-size:13px;
+
+
+    border-radius:8px;
+
+
+    transition:.2s;
+
+
+}
+
+
+
+.submenu-link:hover {
+
+
+    background:#1e293b;
+
+    color:white;
+
+
+}
+
+.submenu-link.active {
+
+
+    background:#4f46e5;
+
+    color:white;
+
+
+}
+.app-container-body {
+
+    margin-left:260px;
+
+    transition:0.3s;
+
+}
+
+
+.app-container-body.full {
+
+    margin-left:0;
+
+}
+
+.admin-layout-wrapper {
+
+    display:flex;
+
+    min-height:100vh;
+
+    font-family:
+    system-ui,
+    -apple-system,
+    BlinkMacSystemFont,
+    "Segoe UI",
+    Roboto,
+    sans-serif;
+
+    background:#f8fafc;
+
+    transition:.3s;
+
+}
+
+
+/* =====================================
+   SIDEBAR
+===================================== */
+
+
+.admin-sidebar {
+    width:260px;
+    background:#0f172a;
+    color:white;
+    display:flex;
+    flex-direction:column;
+    position:fixed;
+    height:100vh;
+    left:0;
+    top:0;
+    z-index:2000;
+    transition:.3s;
+    box-shadow:
+    2px 0 10px rgba(0,0,0,.15);
+
+}
+
+
+
+.sidebar-brand {
+
+
+    height:70px;
+
+    display:flex;
+
+    align-items:center;
+
+    padding:0 24px;
+
+    font-size:18px;
+
+    font-weight:700;
+
+    border-bottom:
+    1px solid #1e293b;
+
+}
+
+
+
+.sidebar-menu-links {
+
+    list-style:none;
+
+    padding:24px 16px;
+
+    margin:0;
+
+    display:flex;
+
+    flex-direction:column;
+
+    gap:8px;
+
+}
+
+.nav-link-item {
+
+    display:flex;
+
+    align-items:center;
+
+    padding:12px 16px;
+
+    border-radius:8px;
+
+    color:#94a3b8;
+
+    text-decoration:none;
+
+    font-size:14px;
+
+    font-weight:500;
+
+    transition:.2s;
+
+}
+
+
+
+.nav-link-item:hover {
+
+
+    background:#1e293b;
+
+    color:white;
+
+}
+
+
+
+.nav-link-item.active {
+
+
+    background:#4f46e5;
+
+    color:white;
+
+}
+
+
+
+
+
+
+/* =====================================
+   MAIN CONTAINER
+===================================== */
+
+
+.app-container-body {
+
+
+    margin-left:260px;
+
+    flex:1;
+
+    display:flex;
+
+    flex-direction:column;
+
+    min-width:0;
+
+}
+
+
+
+
+
+/* =====================================
+   NAVBAR
+===================================== */
+
+
+.admin-navbar {
+
+    height:70px;
+
+    background:white;
+
+    border-bottom:1px solid #e2e8f0;
+
+    display:flex;
+
+    align-items:center;
+
+    justify-content:flex-end; /* Move content right */
+
+    padding:0 35px;
+
+    position:sticky;
+
+    top:0;
+
+    z-index:1000;
+
+}
+
+
+
+.navbar-actions {
+
+
+   display:flex;
+
+    align-items:center;
+
+    justify-content:flex-end;
+
+    gap:15px;
+
+    margin-left:auto;
+
+}
+
+
+
+
+
+/* Mobile menu button */
+
+.mobile-menu-btn {
+
+    display:flex;
+
+    align-items:center;
+
+    justify-content:center;
+
+    width:42px;
+
+    height:42px;
+
+    background:#f1f5f9;
+
+    border:none;
+
+    border-radius:8px;
+
+    font-size:24px;
+
+    cursor:pointer;
+
+    color:#334155;
+
+    transition:0.3s;
+
+}
+
+
+.mobile-menu-btn:hover {
+
+    background:#e2e8f0;
+
+}
+.admin-sidebar {
+
+    left:0;
+
+    transition:0.3s;
+
+}
+
+
+
+.admin-sidebar.hide {
+
+    left:-260px;
+
+}
+.admin-sidebar.show {
+
+    left:0;
+
+}
+
+/* =====================================
+   ICON BUTTON
+===================================== */
+
+
+.icon-btn {
+
+
+    position:relative;
+
+    width:40px;
+
+    height:40px;
+
+    border:none;
+
+    background:#f1f5f9;
+
+    border-radius:50%;
+
+    cursor:pointer;
+
+    font-size:18px;
+
+    transition:.2s;
+
+}
+
+
+
+.icon-btn:hover {
+
+
+    background:#e2e8f0;
+
+}
+
+
+
+
+
+.notification-badge {
+
+
+    position:absolute;
+
+    top:-4px;
+
+    right:-4px;
+
+    background:#ef4444;
+
+    color:white;
+
+    font-size:11px;
+
+    width:18px;
+
+    height:18px;
+
+    display:flex;
+
+    justify-content:center;
+
+    align-items:center;
+
+    border-radius:50%;
+
+}
+
+
+
+
+
+/* =====================================
+   USER DROPDOWN
+===================================== */
+
+
+.dropdown-container {
+
+    position:relative;
+
+}
+
+.user-profile-badge {
+    display:flex;
+    align-items:center;
+    gap:10px;
+    border:none;
+
+    background:none;
+
+    cursor:pointer;
+
+    font-weight:600;
+
+    color:#334155;
+
+}
+
+
+
+
+
+.dropdown-menu {
+
+
+    position:absolute;
+
+    right:0;   /* Important: align right */
+
+    left:auto;
+
+    top:50px;
+
+    width:240px;
+
+    background:white;
+
+    border-radius:12px;
+
+    padding:15px;
+
+    box-shadow:
+    0 10px 30px rgba(0,0,0,.15);
+
+    z-index:3000;
+
+}
+
+
+
+
+.dropdown-menu button {
+
+
+    width:100%;
+
+    padding:10px;
+
+    border:none;
+
+    background:none;
+
+    text-align:left;
+
+    border-radius:6px;
+
+    cursor:pointer;
+
+}
+
+
+
+.dropdown-menu button:hover {
+
+
+    background:#f1f5f9;
+
+}
+
+
+
+
+@keyframes dropdown {
+
+
+    from{
+
+        opacity:0;
+
+        transform:
+        translateY(-10px);
+
+    }
+
+
+    to{
+
+        opacity:1;
+
+        transform:
+        translateY(0);
+
+    }
+
+}
+
+
+
+
+
+/* =====================================
+   CONTENT
+===================================== */
+
+
+.admin-main-content {
+
+
+    flex:1;
+
+    padding:40px;
+
+}
+
+
+
+
+
+/* =====================================
+   FOOTER
+===================================== */
+
+
+.admin-footer {
+
+
+    background:white;
+
+    border-top:
+    1px solid #e2e8f0;
+
+    padding:20px 40px;
+
+    text-align:center;
+
+    color:#94a3b8;
+
+    font-size:13px;
+
+}
+
+
+
+
+
+/* =====================================
+   DARK MODE
+===================================== */
+
+
+.dark {
+
+
+    background:#020617;
+
+}
+
+
+
+.dark .admin-navbar {
+
+
+    background:#111827;
+
+    border-color:#1e293b;
+
+}
+
+
+
+.dark .admin-main-content {
+
+
+    background:#020617;
+
+    color:white;
+
+}
+
+
+
+.dark .admin-footer {
+
+
+    background:#111827;
+
+    border-color:#1e293b;
+
+}
+
+
+
+
+
+.dark .user-profile-badge {
+
+
+    color:white;
+
+}
+
+
+
+.dark .icon-btn {
+
+
+    background:#1e293b;
+
+    color:white;
+
+}
+
+
+
+
+.dark .dropdown-menu {
+
+
+    background:#1e293b;
+
+    color:white;
+
+}
+
+
+
+
+
+.dark .dropdown-menu button {
+
+
+    color:white;
+
+}
+
+
+
+.dark .dropdown-menu button:hover {
+
+
+    background:#334155;
+
+}
+
+
+
+
+
+/* =====================================
+   MOBILE RESPONSIVE
+===================================== */
+
+
+.mobile-overlay {
+
+
+    display:none;
+
+}
+
+
+
+
+
+@media(max-width:900px){
+    .mobile-menu-btn {
+
+        display:block;
+    }
+    .admin-sidebar {
+        left:-260px;
+
+    }
+    .admin-sidebar.show {
+        left:0;
+
+    }
+    .app-container-body {
+
+
+        margin-left:0;
+
+    }
+
+
+
+    .mobile-overlay {
+
+
+        display:block;
+
+        position:fixed;
+
+        inset:0;
+
+        background:
+        rgba(0,0,0,.5);
+
+        z-index:1500;
+
+    }
+
+
+
+
+    .admin-navbar {
+        height:70px;
+
+        background:white;
+
+        border-bottom:1px solid #e2e8f0;
+
+        display:flex;
+
+        align-items:center;
+
+        justify-content:space-between;
+
+        padding:0 35px;
+
+    }
+
+
+
+    .admin-main-content {
+
+
+        padding:20px;
+
+    }
+
+
+
+}
+
+
+
+
+@media(max-width:500px){
+
+
+    .user-profile-badge span {
+
+
+        display:none;
+
+    }
+
+
+}

@@ -1,0 +1,402 @@
+/* ==========================================================================
+   1. CORE WRAPPERS & ENTRY ANIMATIONS
+   ========================================================================== */
+.students-page-wrapper {
+  animation: studentViewFadeIn 0.35s cubic-bezier(0.16, 1, 0.3, 1);
+  padding: 4px;
+}
+
+/* ==========================================================================
+   2. MAIN ACTION HEADER BANNER
+   ========================================================================== */
+.registry-header-panel {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 24px;
+  gap: 16px;
+}
+
+.header-titles h2 {
+  margin: 0 0 6px 0;
+  font-size: 24px;
+  color: #0f172a;
+  font-weight: 700;
+  letter-spacing: -0.5px;
+}
+
+.header-titles p {
+  margin: 0;
+  color: #64748b;
+  font-size: 14px;
+}
+
+.add-student-master-btn {
+  background-color: #4f46e5;
+  color: #ffffff;
+  border: none;
+  padding: 12px 20px;
+  border-radius: 10px;
+  font-size: 14px;
+  font-weight: 600;
+  cursor: pointer;
+  box-shadow: 0 2px 4px rgba(79, 70, 229, 0.15);
+  transition: all 0.2s ease;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.add-student-master-btn:hover {
+  background-color: #4338ca;
+  box-shadow: 0 4px 12px rgba(79, 70, 229, 0.25);
+  transform: translateY(-1px);
+}
+
+/* ==========================================================================
+   3. SEARCH FILTER DECK
+   ========================================================================== */
+.search-filter-card {
+  background-color: #ffffff;
+  padding: 16px;
+  border-radius: 12px;
+  border: 1px solid #e2e8f0;
+  margin-bottom: 24px;
+}
+
+.registry-search-input {
+  width: 100%;
+  padding: 12px 16px;
+  border: 1px solid #cbd5e1;
+  border-radius: 8px;
+  font-size: 14px;
+  outline: none;
+  box-sizing: border-box;
+  transition: all 0.15s ease;
+}
+
+.registry-search-input:focus {
+  border-color: #4f46e5;
+  box-shadow: 0 0 0 3px rgba(79, 70, 229, 0.12);
+}
+
+/* ==========================================================================
+   4. CENTRAL REGISTRY DATA TABLE GRID
+   ========================================================================== */
+.table-container-card {
+  background-color: #ffffff;
+  border-radius: 14px;
+  border: 1px solid #e2e8f0;
+  overflow: hidden;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.02);
+}
+
+.student-data-table {
+  width: 100%;
+  border-collapse: collapse;
+  text-align: left;
+  font-size: 14px;
+}
+
+.student-data-table th {
+  background-color: #f8fafc;
+  color: #475569;
+  font-weight: 600;
+  padding: 16px 24px;
+  border-bottom: 1px solid #e2e8f0;
+  text-transform: uppercase;
+  font-size: 12px;
+  letter-spacing: 0.5px;
+}
+
+.student-data-table td {
+  padding: 16px 24px;
+  color: #334155;
+  border-bottom: 1px solid #f1f5f9;
+  vertical-align: middle;
+}
+
+.student-data-table tr:last-child td {
+  border-bottom: none;
+}
+
+.student-data-table tr:hover td {
+  background-color: #f8fafc;
+}
+
+.clickable-name {
+  color: #4f46e5;
+  font-weight: 600;
+  cursor: pointer;
+  transition: color 0.15s ease;
+}
+
+.clickable-name:hover {
+  color: #312e81;
+  text-decoration: underline;
+}
+
+.text-secondary-dim {
+  color: #64748b !important;
+}
+
+/* ==========================================================================
+   5. UTILITY STATUS BADGES & ROW ACTION BUTTONS
+   ========================================================================== */
+.status-badge {
+  display: inline-flex;
+  align-items: center;
+  padding: 4px 10px;
+  border-radius: 9999px;
+  font-size: 12px;
+  font-weight: 600;
+}
+
+.status-badge.active {
+  background-color: #dcfce7;
+  color: #15803d;
+}
+
+.status-badge.suspended {
+  background-color: #fee2e2;
+  color: #b91c1c;
+}
+
+.action-row-buttons {
+  display: flex;
+  gap: 8px;
+  justify-content: center;
+}
+
+.row-edit-action-btn {
+  background-color: #f0fdf4;
+  color: #16a34a;
+  border: 1px solid #bbf7d0;
+  padding: 6px 14px;
+  border-radius: 6px;
+  font-size: 13px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.15s ease;
+}
+
+.row-edit-action-btn:hover {
+  background-color: #16a34a;
+  color: #ffffff;
+  border-color: #16a34a;
+}
+
+.row-delete-action-btn {
+  background-color: #fff5f5;
+  color: #e53e3e;
+  border: 1px solid #fed7d7;
+  padding: 6px 14px;
+  border-radius: 6px;
+  font-size: 13px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.15s ease;
+}
+
+.row-delete-action-btn:hover {
+  background-color: #e53e3e;
+  color: #ffffff;
+  border-color: #e53e3e;
+}
+
+/* ==========================================================================
+   6. PAGINATION FOOTER CONTROL LAYOUT
+   ========================================================================== */
+.pagination-footer-bar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 16px 24px;
+  background-color: #f8fafc;
+  border-top: 1px solid #e2e8f0;
+  font-size: 13px;
+  color: #64748b;
+  font-weight: 500;
+}
+
+.pagination-nav-btn {
+  background-color: #ffffff;
+  border: 1px solid #cbd5e1;
+  padding: 6px 14px;
+  border-radius: 6px;
+  cursor: pointer;
+  font-weight: 600;
+  color: #334155;
+  transition: all 0.15s ease;
+}
+
+.pagination-nav-btn:hover:not(:disabled) {
+  background-color: #f1f5f9;
+  border-color: #94a3b8;
+}
+
+.pagination-nav-btn:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+/* Fallbacks & Fallback Spinners */
+.table-loading-spinner {
+  padding: 60px;
+  text-align: center;
+  color: #64748b;
+  font-weight: 500;
+}
+
+.table-empty-fallback {
+  text-align: center;
+  padding: 40px !important;
+  color: #94a3b8;
+  font-weight: 500;
+  font-style: italic;
+}
+
+/* ==========================================================================
+   7. INTERACTIVE REACT MODAL ELEMENT OVERLAYS (Create, Update, Show)
+   ========================================================================== */
+.modal-backdrop-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(15, 23, 42, 0.4);
+  backdrop-filter: blur(2px);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 2000;
+  animation: modalOverlayFade 0.2s ease-out;
+}
+
+.modal-content-card {
+  background: #ffffff;
+  padding: 28px;
+  border-radius: 16px;
+  width: 100%;
+  max-width: 650px;
+  box-shadow:
+    0 20px 25px -5px rgba(0, 0, 0, 0.1),
+    0 10px 10px -5px rgba(0, 0, 0, 0.04);
+  box-sizing: border-box;
+}
+
+.modal-content-card h3 {
+  margin: 0 0 20px 0;
+  font-size: 20px;
+  color: #0f172a;
+  font-weight: 700;
+}
+
+.profile-show-card {
+  max-width: 480px;
+}
+
+.profile-details-list p {
+  margin: 12px 0;
+  font-size: 14px;
+  color: #334155;
+  display: flex;
+  justify-content: space-between;
+  border-bottom: 1px dashed #f1f5f9;
+  padding-bottom: 8px;
+}
+
+.profile-details-list p strong {
+  color: #475569;
+}
+
+.modal-action-row {
+  display: flex;
+  gap: 12px;
+  justify-content: flex-end;
+  margin-top: 20px;
+}
+
+/* ==========================================================================
+   8. SHARED MODAL COMPONENT FORM FIELD GRIDS (Matching SweetAlert Design)
+   ========================================================================== */
+.swal-form-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 14px;
+  width: 100%;
+}
+
+.swal2-input,
+.swal2-select,
+.swal2-file,
+.swal2-textarea {
+  width: 100% !important;
+  height: 44px !important;
+  padding: 0 14px !important;
+  margin: 0 !important;
+  border: 1px solid #cbd5e1 !important;
+  border-radius: 8px !important;
+  font-size: 14px !important;
+  font-family: inherit !important;
+  box-sizing: border-box !important;
+  box-shadow: none !important;
+  outline: none !important;
+  background-color: #ffffff;
+}
+
+.swal2-file {
+  padding: 10px 14px !important;
+  height: auto !important;
+  cursor: pointer !important;
+}
+
+.swal2-input:focus,
+.swal2-select:focus,
+.swal2-file:focus,
+.swal2-textarea:focus {
+  border-color: #4f46e5 !important;
+  box-shadow: 0 0 0 3px rgba(79, 70, 229, 0.12) !important;
+}
+
+/* ==========================================================================
+   9. RESPONSIVE QUERY SHIFTS & ANIMATION TIMINGS
+   ========================================================================== */
+@media (max-width: 640px) {
+  .swal-form-grid {
+    grid-template-columns: 1fr;
+  }
+  .registry-header-panel {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+  .add-student-master-btn {
+    width: 100%;
+    justify-content: center;
+  }
+  .modal-content-card {
+    margin: 16px;
+    padding: 20px;
+  }
+}
+
+@keyframes studentViewFadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(8px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes modalOverlayFade {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}

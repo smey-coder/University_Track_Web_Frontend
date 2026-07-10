@@ -1,0 +1,125 @@
+/* Container centered layout */
+.auth-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    background-color: #f4f6f9;
+    font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+    padding: 20px;
+    box-sizing: border-box;
+}
+
+/* Auth Card Wrapper */
+.auth-card {
+    background: #ffffff;
+    padding: 40px;
+    border-radius: 12px;
+    box-shadow: 0 8px 24px rgba(149, 157, 165, 0.15);
+    width: 100%;
+    max-width: 400px;
+    box-sizing: border-box;
+}
+
+/* Typography styles */
+.auth-title {
+    margin: 0 0 8px 0;
+    color: #1a1f36;
+    font-size: 28px;
+    font-weight: 700;
+    text-align: center;
+}
+
+.auth-subtitle {
+    margin: 0 0 24px 0;
+    color: #697386;
+    font-size: 15px;
+    text-align: center;
+}
+
+/* Red error alerts */
+.auth-error-alert {
+    background-color: #fde8e8;
+    color: #9b1c1c;
+    padding: 12px;
+    border-radius: 6px;
+    margin-bottom: 20px;
+    font-size: 14px;
+    border: 1px solid #fbd5d5;
+    text-align: center;
+    font-weight: 500;
+}
+
+/* Structural Form input spacing */
+.auth-input-group {
+    margin-bottom: 20px;
+}
+
+.auth-label {
+    display: block;
+    margin-bottom: 6px;
+    color: #3c4257;
+    font-size: 14px;
+    font-weight: 500;
+}
+
+.auth-input {
+    width: 100%;
+    padding: 12px;
+    border-radius: 6px;
+    border: 1px solid #d9d9d9;
+    font-size: 15px;
+    box-sizing: border-box;
+    transition: all 0.2s ease-in-out;
+    outline: none;
+    color: #1a1f36;
+}
+
+/* Focus effects for native feel */
+.auth-input:focus {
+    border-color: #4f46e5;
+    box-shadow: 0 0 0 3px rgba(79, 70, 229, 0.15);
+}
+
+/* Submission interactive buttons */
+.auth-primary-button {
+    width: 100%;
+    padding: 12px;
+    background-color: #4f46e5;
+    color: #ffffff;
+    border: none;
+    border-radius: 6px;
+    font-size: 16px;
+    font-weight: 600;
+    cursor: pointer;
+    margin-top: 10px;
+    transition: background-color 0.15s ease;
+}
+
+.auth-primary-button:hover {
+    background-color: #4338ca;
+}
+
+.auth-primary-button:active {
+    background-color: #3730a3;
+}
+
+/* Footer layout rules */
+.auth-footer-text {
+    margin-top: 24px;
+    text-align: center;
+    color: #697386;
+    font-size: 14px;
+}
+
+.auth-link {
+    color: #4f46e5;
+    text-decoration: none;
+    font-weight: 500;
+    transition: color 0.15s ease;
+}
+
+.auth-link:hover {
+    color: #4338ca;
+    text-decoration: underline;
+}
