@@ -1,33 +1,90 @@
-import { Navigate, Outlet, useLocation } from 'react-router-dom';
-import { useAuth } from '../hooks/useAuth';
+import { Navigate, Outlet } from "react-router-dom";
+import { useAuth } from "../hooks/useAuth";
 
-export const ProtectedRoute = () => {
-  const { user, loading } = useAuth(); // 1. Grab 'loading' from your AuthContext
-  const location = useLocation();
+const ProtectedRoute = ({ permission, role, children }) => {
+  const { user, loading } = useAuth();
 
-  // 2. CRITICAL: If the API is still checking the token, render a loading screen.
-  // This halts all redirects until we know for sure if the user is logged in!
   if (loading) {
     return (
-      <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', height: '100vh', fontFamily: 'sans-serif' }}>
+      <div
+        style={{
+          display: "flex",
+          justifyContent: "center",
+          alignItems: "center",
+          height: "100vh",
+        }}
+      >
         <h3>Loading your session...</h3>
       </div>
     );
   }
 
-  // 3. Now that loading is false, if there is no user, redirect to login safely
   if (!user) {
     return <Navigate to="/login" replace />;
   }
 
-  // 4. Prevent cross-access based on URL path prefix matching roles
-  if (location.pathname.startsWith('/admin') && user.role !== 'admin') {
-    return <Navigate to="/teacher/dashboard" replace />;
+  // ==============================
+  // Get Role
+  // ==============================
+
+  const currentRole = (user.role || user.roles?.[0] || "")
+    .toString()
+    .toLowerCase();
+
+  // ==============================
+  // Get Permissions
+  // ==============================
+
+  const permissions = (user.permissions || []).map((item) =>
+    item.toString().toLowerCase(),
+  );
+
+  // ==============================
+  // Check Role
+  // ==============================
+
+  if (role) {
+    if (currentRole !== role.toLowerCase()) {
+      return <Navigate to="/403" replace />;
+    }
   }
 
-  if (location.pathname.startsWith('/teacher') && user.role !== 'teacher') {
-    return <Navigate to="/admin/dashboard" replace />;
+  // ==============================
+  // Check Permission
+  // ==============================
+
+  if (permission) {
+    if (!permissions.includes(permission.toLowerCase())) {
+      return <Navigate to="/403" replace />;
+    }
   }
 
-  return <Outlet />;
+  // ==============================
+  // URL Area Protection
+  // ==============================
+
+  if (
+    window.location.pathname.startsWith("/admin") &&
+    currentRole !== "admin"
+  ) {
+    return <Navigate to="/403" replace />;
+  }
+
+  if (
+    window.location.pathname.startsWith("/teacher") &&
+    currentRole !== "teacher"
+  ) {
+    return <Navigate to="/403" replace />;
+  }
+
+  if (
+    window.location.pathname.startsWith("/student") &&
+    currentRole !== "student"
+  ) {
+    return <Navigate to="/403" replace />;
+  }
+
+  return children || <Outlet />;
 };
+
+export default ProtectedRoute;

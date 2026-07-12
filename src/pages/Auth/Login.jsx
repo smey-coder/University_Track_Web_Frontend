@@ -2,81 +2,98 @@ import { useState } from "react";
 import { useAuth } from "../../hooks/useAuth";
 import { useNavigate, Link } from "react-router-dom";
 import { toast } from "react-toastify";
-import Swal from "sweetalert2";
 import "../../styles/login.css";
 
 const Login = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [isSubmitting, setIsSubmitting] = useState(false);
+
   const { login } = useAuth();
   const navigate = useNavigate();
 
+  const toastStyle = {
+    background: "#22c55e",
+    color: "#fff",
+    fontWeight: "500",
+    borderRadius: "10px",
+  };
+
+  const errorStyle = {
+    background: "#ef4444",
+    color: "#fff",
+    fontWeight: "500",
+    borderRadius: "10px",
+  };
+
+  const loadingStyle = {
+    background: "#3b82f6",
+    color: "#fff",
+    fontWeight: "500",
+    borderRadius: "10px",
+  };
+
   const handleSubmit = async (e) => {
     e.preventDefault();
+
     setIsSubmitting(true);
 
-    // 1. Trigger informational loading notification
-    const loadingToast = toast.loading("ℹ️ Loading data...", {
-      style: {
-        background: "#3b82f6",
-        color: "#fff",
-        fontWeight: "500",
-        borderRadius: "10px",
-      },
+    const loadingToast = toast.loading("Loading account...", {
+      style: loadingStyle,
     });
 
     try {
+      // Call Login API
       const data = await login(email, password);
-      const user = data.user || {};
-      const userRole = user.role;
-      const userName = user.username || user.name || "User";
 
-      // 2. Dismiss loading and fire your exact customized success toast layout 🎉
+      // Save Token
+      localStorage.setItem("token", data.token);
+
+      // Save User
+      localStorage.setItem("user", JSON.stringify(data.user));
+
+      const user = data.user;
+
+      const userName = user.username;
+
+      const roles = user.roles || [];
+
       toast.dismiss(loadingToast);
+
       toast.success(`🎉 Welcome back, ${userName}!`, {
-        style: {
-          background: "#22c55e",
-          color: "#fff",
-          fontWeight: "500",
-          borderRadius: "10px",
-        },
+        style: toastStyle,
         autoClose: 2000,
       });
 
-      // 3. Forward to the dashboard after a short delay
       setTimeout(() => {
-        if (userRole === "admin") {
+        if (roles.includes("Admin")) {
           navigate("/admin/dashboard");
-        } else if (userRole === "teacher") {
+        } else if (roles.includes("Teacher")) {
           navigate("/teacher/dashboard");
+        } else if (roles.includes("Student")) {
+          navigate("/student/dashboard");
         } else {
-          toast.error("❌ Unauthorized role allocation access.", {
-            style: {
-              background: "#ef4444",
-              color: "#fff",
-              fontWeight: "500",
-              borderRadius: "10px",
-            },
+          toast.error("No role assigned.", {
+            style: errorStyle,
           });
+
+          localStorage.removeItem("token");
+          localStorage.removeItem("user");
+
           setIsSubmitting(false);
         }
       }, 1200);
     } catch (err) {
-      setIsSubmitting(false);
       toast.dismiss(loadingToast);
 
-      const errorMsg =
-        err.response?.data?.message || "Invalid validation details";
+      setIsSubmitting(false);
 
-      // 4. Fire your custom error layout ❌
-      toast.error(`❌ ${errorMsg}`, {
-        style: {
-          background: "#ef4444",
-          color: "#fff",
-          fontWeight: "500",
-          borderRadius: "10px",
-        },
+      const message =
+        err.response?.data?.message ||
+        "Login failed. Please check your credentials.";
+
+      toast.error(`❌ ${message}`, {
+        style: errorStyle,
       });
     }
   };
@@ -84,34 +101,51 @@ const Login = () => {
   return (
     <div className="auth-container">
       <div className="auth-card">
-        <h2 className="auth-title">Welcome Back</h2>
-        <p className="auth-subtitle">Sign in to your dashboard</p>
+
+        <h2 className="auth-title">
+          Welcome Back
+        </h2>
+
+        <p className="auth-subtitle">
+          Sign in to University Track
+        </p>
 
         <form onSubmit={handleSubmit}>
+
           <div className="auth-input-group">
-            <label className="auth-label">Email Address</label>
+
+            <label className="auth-label">
+              Email Address
+            </label>
+
             <input
               type="email"
+              className="auth-input"
+              placeholder="Enter email"
               value={email}
               onChange={(e) => setEmail(e.target.value)}
-              required
-              className="auth-input"
-              placeholder="name@example.com"
               disabled={isSubmitting}
+              required
             />
+
           </div>
 
           <div className="auth-input-group">
-            <label className="auth-label">Password</label>
+
+            <label className="auth-label">
+              Password
+            </label>
+
             <input
               type="password"
+              className="auth-input"
+              placeholder="Enter password"
               value={password}
               onChange={(e) => setPassword(e.target.value)}
-              required
-              className="auth-input"
-              placeholder="••••••••"
               disabled={isSubmitting}
+              required
             />
+
           </div>
 
           <button
@@ -119,16 +153,18 @@ const Login = () => {
             className="auth-primary-button"
             disabled={isSubmitting}
           >
-            {isSubmitting ? "Verifying..." : "Sign In"}
+            {isSubmitting ? "Signing In..." : "Sign In"}
           </button>
+
         </form>
 
         <p className="auth-footer-text">
           Don't have an account?{" "}
-          <Link to="/register" className="auth-link">
-            Register here
+          <Link to="/activate" className="auth-link">
+            Activate Account
           </Link>
         </p>
+
       </div>
     </div>
   );

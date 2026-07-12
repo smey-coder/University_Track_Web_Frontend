@@ -1,0 +1,407 @@
+/* =====================================
+   PERMISSION PAGE
+===================================== */
+
+.permission-page {
+  padding: 30px;
+
+  background: #f8fafc;
+
+  min-height: 100vh;
+
+  font-family:
+    system-ui,
+    -apple-system,
+    "Segoe UI",
+    sans-serif;
+}
+
+/* =====================================
+   HEADER
+===================================== */
+
+.permission-header {
+  display: flex;
+
+  justify-content: space-between;
+
+  align-items: center;
+
+  background: white;
+
+  padding: 25px;
+
+  border-radius: 16px;
+
+  margin-bottom: 20px;
+
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+}
+
+.permission-header h2 {
+  margin: 0;
+
+  color: #0f172a;
+}
+
+.permission-header p {
+  margin-top: 8px;
+
+  color: #64748b;
+}
+
+.add-permission-btn {
+  background: #4f46e5;
+
+  color: white;
+
+  border: none;
+
+  padding: 12px 20px;
+
+  border-radius: 10px;
+
+  cursor: pointer;
+
+  font-weight: 600;
+}
+
+.add-permission-btn:hover {
+  background: #4338ca;
+}
+
+/* =====================================
+   SEARCH
+===================================== */
+
+.permission-search {
+  background: white;
+
+  padding: 20px;
+
+  border-radius: 14px;
+
+  margin-bottom: 20px;
+}
+
+.permission-search input {
+  width: 100%;
+
+  padding: 12px 15px;
+
+  border: 1px solid #e2e8f0;
+
+  border-radius: 10px;
+
+  outline: none;
+
+  font-size: 14px;
+}
+
+.permission-search input:focus {
+  border-color: #4f46e5;
+}
+
+/* =====================================
+   TABLE
+===================================== */
+
+.permission-table-card {
+  background: white;
+
+  border-radius: 16px;
+
+  overflow: hidden;
+
+  box-shadow: 0 5px 20px rgba(0, 0, 0, 0.05);
+}
+
+.permission-table-card table {
+  width: 100%;
+
+  border-collapse: collapse;
+}
+
+.permission-table-card th {
+  background: #f1f5f9;
+
+  padding: 15px;
+
+  text-align: left;
+
+  color: #475569;
+
+  font-size: 14px;
+}
+
+.permission-table-card td {
+  padding: 15px;
+
+  border-bottom: 1px solid #e2e8f0;
+
+  color: #334155;
+}
+
+.permission-table-card tr:hover {
+  background: #f8fafc;
+}
+
+.clickable {
+  cursor: pointer;
+
+  color: #4f46e5;
+
+  font-weight: 600;
+}
+
+/* =====================================
+   BADGES
+===================================== */
+
+.guard-badge {
+  background: #dbeafe;
+
+  color: #1d4ed8;
+
+  padding: 5px 12px;
+
+  border-radius: 999px;
+
+  font-size: 12px;
+
+  font-weight: 600;
+}
+
+/* =====================================
+   BUTTON
+===================================== */
+
+.edit-btn {
+  background: #f59e0b;
+
+  color: white;
+
+  border: none;
+
+  padding: 8px 14px;
+
+  border-radius: 8px;
+
+  margin-right: 8px;
+
+  cursor: pointer;
+}
+
+.edit-btn:hover {
+  background: #d97706;
+}
+
+.delete-btn {
+  background: #ef4444;
+
+  color: white;
+
+  border: none;
+
+  padding: 8px 14px;
+
+  border-radius: 8px;
+
+  cursor: pointer;
+}
+
+.delete-btn:hover {
+  background: #dc2626;
+}
+
+/* =====================================
+   PAGINATION
+===================================== */
+
+.pagination {
+  display: flex;
+
+  justify-content: center;
+
+  align-items: center;
+
+  gap: 20px;
+
+  margin-top: 25px;
+}
+
+.pagination button {
+  padding: 10px 18px;
+
+  border: none;
+
+  border-radius: 8px;
+
+  background: #4f46e5;
+
+  color: white;
+
+  cursor: pointer;
+}
+
+.pagination button:disabled {
+  background: #cbd5e1;
+
+  cursor: not-allowed;
+}
+
+/* =====================================
+   MODAL
+===================================== */
+
+.permission-modal-overlay {
+  position: fixed;
+
+  inset: 0;
+
+  background: rgba(15, 23, 42, 0.55);
+
+  display: flex;
+
+  justify-content: center;
+
+  align-items: center;
+
+  z-index: 5000;
+}
+
+.permission-modal-card {
+  width: 450px;
+
+  background: white;
+
+  border-radius: 18px;
+
+  padding: 25px;
+
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.2);
+}
+
+.permission-modal-header {
+  display: flex;
+
+  justify-content: space-between;
+
+  align-items: center;
+
+  border-bottom: 1px solid #e2e8f0;
+
+  padding-bottom: 15px;
+
+  margin-bottom: 20px;
+}
+
+.permission-modal-header h3 {
+  margin: 0;
+
+  color: #0f172a;
+}
+
+.permission-modal-header p {
+  margin: 5px 0 0;
+
+  color: #64748b;
+
+  font-size: 13px;
+}
+
+.permission-close-btn {
+  width: 35px;
+
+  height: 35px;
+
+  border: none;
+
+  border-radius: 50%;
+
+  background: #fee2e2;
+
+  color: #ef4444;
+
+  font-size: 18px;
+
+  cursor: pointer;
+}
+
+/* =====================================
+   DETAIL
+===================================== */
+
+.permission-detail-body {
+  display: flex;
+
+  flex-direction: column;
+
+  gap: 15px;
+}
+
+.detail-item {
+  display: flex;
+
+  justify-content: space-between;
+
+  padding: 12px;
+
+  background: #f8fafc;
+
+  border-radius: 10px;
+}
+
+.detail-item span:first-child {
+  color: #64748b;
+
+  font-size: 14px;
+}
+
+.detail-item strong {
+  color: #0f172a;
+}
+
+.permission-modal-footer {
+  margin-top: 25px;
+
+  display: flex;
+
+  justify-content: flex-end;
+}
+
+.permission-cancel-btn {
+  background: #64748b;
+
+  color: white;
+
+  border: none;
+
+  padding: 10px 20px;
+
+  border-radius: 8px;
+
+  cursor: pointer;
+}
+
+/* =====================================
+   MOBILE
+===================================== */
+
+@media (max-width: 768px) {
+  .permission-header {
+    flex-direction: column;
+
+    gap: 15px;
+
+    align-items: flex-start;
+  }
+
+  .permission-table-card {
+    overflow-x: auto;
+  }
+
+  .permission-modal-card {
+    width: 90%;
+  }
+}

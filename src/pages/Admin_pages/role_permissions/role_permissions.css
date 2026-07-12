@@ -1,0 +1,469 @@
+/* =========================================
+   ROLE PERMISSION PAGE
+========================================= */
+
+.permission-page {
+  padding: 25px;
+
+  background: #f8fafc;
+
+  min-height: 100vh;
+
+  font-family: "Inter", sans-serif;
+}
+
+/* =========================================
+   HEADER
+========================================= */
+
+.permission-header {
+  background: white;
+
+  padding: 25px;
+
+  border-radius: 15px;
+
+  display: flex;
+
+  justify-content: space-between;
+
+  align-items: center;
+
+  margin-bottom: 25px;
+
+  box-shadow: 0 5px 20px rgba(0, 0, 0, 0.08);
+}
+
+.permission-header h2 {
+  margin: 0;
+
+  font-size: 26px;
+
+  color: #1e293b;
+}
+
+.permission-header p {
+  margin-top: 8px;
+
+  color: #64748b;
+}
+
+/* =========================================
+   TABLE CARD
+========================================= */
+
+.permission-table-card {
+  background: white;
+
+  border-radius: 15px;
+
+  padding: 20px;
+
+  overflow-x: auto;
+
+  box-shadow: 0 5px 20px rgba(0, 0, 0, 0.08);
+}
+
+.permission-table-card table {
+  width: 100%;
+
+  border-collapse: collapse;
+}
+
+.permission-table-card th {
+  background: #f1f5f9;
+
+  padding: 14px;
+
+  text-align: left;
+
+  font-size: 14px;
+
+  color: #475569;
+}
+
+.permission-table-card td {
+  padding: 14px;
+
+  border-bottom: 1px solid #e2e8f0;
+
+  color: #334155;
+}
+
+.permission-table-card tr:hover {
+  background: #f8fafc;
+}
+
+/* =========================================
+   BADGES
+========================================= */
+
+.role-badge {
+  background: #2563eb;
+
+  color: white;
+
+  padding: 6px 14px;
+
+  border-radius: 20px;
+
+  font-size: 13px;
+
+  font-weight: 600;
+}
+
+.guard-badge {
+  background: #dcfce7;
+
+  color: #15803d;
+
+  padding: 6px 12px;
+
+  border-radius: 20px;
+
+  font-size: 13px;
+}
+
+.permission-badge {
+  display: inline-block;
+
+  background: #e0f2fe;
+
+  color: #0369a1;
+
+  padding: 8px 14px;
+
+  border-radius: 20px;
+
+  margin: 5px;
+
+  font-size: 13px;
+
+  font-weight: 500;
+}
+
+/* =========================================
+   BUTTONS
+========================================= */
+
+.show-btn,
+.edit-btn,
+.cancel-btn,
+.save-btn {
+  border: none;
+
+  padding: 9px 16px;
+
+  border-radius: 8px;
+
+  cursor: pointer;
+
+  font-size: 14px;
+
+  margin-right: 8px;
+
+  transition: 0.3s;
+}
+
+.show-btn {
+  background: #0ea5e9;
+
+  color: white;
+}
+
+.show-btn:hover {
+  background: #0284c7;
+}
+
+.edit-btn {
+  background: #f59e0b;
+
+  color: white;
+}
+
+.edit-btn:hover {
+  background: #d97706;
+}
+
+.save-btn {
+  background: #16a34a;
+
+  color: white;
+}
+
+.save-btn:hover {
+  background: #15803d;
+}
+
+.cancel-btn {
+  background: #64748b;
+
+  color: white;
+}
+
+.cancel-btn:hover {
+  background: #475569;
+}
+
+/* =========================================
+   MODAL
+========================================= */
+
+.modal-overlay {
+  position: fixed;
+
+  top: 0;
+
+  left: 0;
+
+  width: 100%;
+
+  height: 100%;
+
+  background: rgba(15, 23, 42, 0.65);
+
+  display: flex;
+
+  justify-content: center;
+
+  align-items: center;
+
+  z-index: 9999;
+}
+
+.permission-modal {
+  width: 520px;
+
+  max-width: 95%;
+
+  background: white;
+
+  border-radius: 18px;
+
+  padding: 25px;
+
+  animation: popup 0.25s ease;
+}
+
+@keyframes popup {
+  from {
+    transform: scale(0.8);
+
+    opacity: 0;
+  }
+
+  to {
+    transform: scale(1);
+
+    opacity: 1;
+  }
+}
+
+.modal-header {
+  display: flex;
+
+  justify-content: space-between;
+
+  align-items: center;
+
+  margin-bottom: 20px;
+}
+
+.modal-header h3 {
+  margin: 0;
+
+  color: #1e293b;
+}
+
+.close-btn {
+  border: none;
+
+  background: #ef4444;
+
+  color: white;
+
+  width: 35px;
+
+  height: 35px;
+
+  border-radius: 50%;
+
+  cursor: pointer;
+}
+
+/* =========================================
+   ROLE SELECTED
+========================================= */
+
+.role-selected {
+  background: #f1f5f9;
+
+  padding: 12px;
+
+  border-radius: 10px;
+
+  margin-bottom: 20px;
+
+  color: #334155;
+}
+
+/* =========================================
+   PERMISSION CHECKBOX
+========================================= */
+
+.permission-list {
+  max-height: 300px;
+
+  overflow-y: auto;
+
+  border: 1px solid #e2e8f0;
+
+  padding: 15px;
+
+  border-radius: 12px;
+}
+
+.permission-item {
+  display: flex;
+
+  gap: 10px;
+
+  align-items: center;
+
+  padding: 10px;
+
+  cursor: pointer;
+
+  border-radius: 8px;
+}
+
+.permission-item:hover {
+  background: #f8fafc;
+}
+
+.permission-item input {
+  width: 18px;
+
+  height: 18px;
+}
+
+/* =========================================
+   MODAL ACTION
+========================================= */
+
+.modal-actions {
+  margin-top: 25px;
+
+  display: flex;
+
+  justify-content: flex-end;
+}
+
+/* =========================================
+   SHOW DETAILS
+========================================= */
+
+.role-detail-card {
+  background: #f8fafc;
+
+  padding: 15px;
+
+  border-radius: 12px;
+
+  margin-bottom: 20px;
+}
+
+.role-detail-card div {
+  margin-bottom: 12px;
+}
+
+.role-detail-card label {
+  color: #64748b;
+
+  font-size: 13px;
+}
+
+.role-detail-card p {
+  margin: 5px 0;
+
+  font-weight: 600;
+
+  color: #1e293b;
+}
+
+.role-title {
+  color: #2563eb !important;
+}
+
+.assigned-permission h4 {
+  margin-bottom: 10px;
+}
+
+.no-permission {
+  background: #fee2e2;
+
+  color: #b91c1c;
+
+  padding: 15px;
+
+  border-radius: 10px;
+
+  text-align: center;
+}
+
+/* =========================================
+   LOADING
+========================================= */
+
+.loading {
+  text-align: center;
+
+  padding: 40px;
+
+  color: #64748b;
+}
+
+/* =========================================
+   RESPONSIVE
+========================================= */
+
+@media (max-width: 768px) {
+  .permission-page {
+    padding: 15px;
+  }
+
+  .permission-header {
+    flex-direction: column;
+
+    align-items: flex-start;
+
+    gap: 15px;
+  }
+
+  .permission-table-card {
+    padding: 10px;
+  }
+
+  .permission-table-card table {
+    min-width: 650px;
+  }
+
+  .permission-modal {
+    width: 95%;
+  }
+}
+
+@media (max-width: 480px) {
+  .permission-header h2 {
+    font-size: 20px;
+  }
+
+  .show-btn,
+  .edit-btn {
+    display: block;
+
+    width: 100%;
+
+    margin-bottom: 8px;
+  }
+}

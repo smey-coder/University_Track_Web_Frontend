@@ -1,47 +1,193 @@
 import { Routes, Route, Navigate } from "react-router-dom";
-import { ProtectedRoute } from "./ProtectedRoute";
-import { PublicRoute } from "./PublicRoute";
 
-// Authentication Pages
+import ProtectedRoute from "./ProtectedRoute";
+import PublicRoute from "./PublicRoute";
+
+// ==============================
+// Authentication
+// ==============================
 import Login from "../pages/Auth/Login";
 import Register from "../pages/Auth/Register";
+import SelectAccountType from "../pages/Auth/SelectAccountType";
+import ActivateAccStudent from "../pages/Auth/ActivateAccStudent";
+import ActivateAccTeacher from "../pages/Auth/ActivateAccTeacher";
 
-// Layout Wrappers
-import AdminLayout from "../layouts/AdminLayout";
-// import TeacherLayout from '../layouts/TeacherLayout';
+// ==============================
+// Layouts
+// ==============================
+import AppLayout from "../layouts/AppLayout"; // Swapped out specific layouts for your new universal AppLayout
 
-// Render Content Pages
-// Admin Page
+// ==============================
+// Pages (Adjust paths if Teacher/Student specific pages are created later)
+// ==============================
 import AdminDashboard from "../pages/Admin_pages/Dashboard";
-import Student from "../pages/Admin_pages/students/index";
-import Teacher from "../pages/Admin_pages/teachers/index";
-// import TeacherDashboard from '../pages/Teacher_pages/Dashboard';
+import Student from "../pages/Admin_pages/students";
+import Teacher from "../pages/Admin_pages/teachers";
+import Department from "../pages/Admin_pages/departments";
+import User from "../pages/Admin_pages/users/index";
+import Permission from "../pages/Admin_pages/permissions";
+import Role from "../pages/Admin_pages/roles";
+import RolePermission from "../pages/Admin_pages/role_permissions";
+
+// ==============================
+// Error Page
+// ==============================
+import Forbidden from "../pages/Errors/Forbidden";
 
 export const AppRoutes = () => {
   return (
     <Routes>
-      {/* 1. Public Authentication Sub-Routes */}
+      {/* ==========================
+          Public Routes
+      ========================== */}
       <Route element={<PublicRoute />}>
         <Route path="/login" element={<Login />} />
         <Route path="/register" element={<Register />} />
+        <Route
+        path="/activate"
+        element={<SelectAccountType />}
+        />
+        <Route
+        path="/activate/student"
+        element={<ActivateAccStudent />}
+        />
+        <Route
+        path="/activate/teacher"
+        element={<ActivateAccTeacher />}
+        />
       </Route>
 
-      {/* 2. Guarded Secure System Workspace */}
-      <Route element={<ProtectedRoute />}>
-        {/* Admin Space */}
-        <Route path="/admin" element={<AdminLayout />}>
-          <Route path="dashboard" element={<AdminDashboard />} />
-          <Route path="students" element={<Student />} />
-          <Route path="teachers" element={<Teacher />} />
-        </Route>
-
-        {/* Teacher Space */}
-        {/* <Route path="/teacher" element={<TeacherLayout />}>
-          <Route path="dashboard" element={<TeacherDashboard />} />
-        </Route> */}
+      {/* ==========================
+          ADMIN PORTAL
+      ========================== */}
+      <Route
+        path="/admin"
+        element={
+          <ProtectedRoute role="admin">
+            <AppLayout />
+          </ProtectedRoute>
+        }
+      >
+        <Route
+          path="dashboard"
+          element={
+            <ProtectedRoute permission="dashboard.view">
+              <AdminDashboard />
+            </ProtectedRoute>
+          }
+        />
+        <Route
+          path="users"
+          element={
+            <ProtectedRoute permission="user.view">
+              <User />
+            </ProtectedRoute>
+          }
+        />
+        <Route
+          path="roles"
+          element={
+            <ProtectedRoute permission="role.view">
+              <Role />
+            </ProtectedRoute>
+          }
+        />
+        <Route
+          path="permissions"
+          element={
+            <ProtectedRoute permission="permission.view">
+              <Permission />
+            </ProtectedRoute>
+          }
+        />
+        <Route
+          path="role_permission"
+          element={
+            <ProtectedRoute permission="role_permission.view">
+              <RolePermission />
+            </ProtectedRoute>
+          }
+        />
+        <Route
+          path="students"
+          element={
+            <ProtectedRoute permission="student.view">
+              <Student />
+            </ProtectedRoute>
+          }
+        />
+        <Route
+          path="teachers"
+          element={
+            <ProtectedRoute permission="teacher.view">
+              <Teacher />
+            </ProtectedRoute>
+          }
+        />
+        <Route
+          path="departments"
+          element={
+            <ProtectedRoute permission="department.view">
+              <Department />
+            </ProtectedRoute>
+          }
+        />
       </Route>
 
-      {/* Wildcard Route Redirect */}
+      {/* ==========================
+          TEACHER PORTAL
+      ========================== */}
+      <Route
+        path="/teacher"
+        element={
+          <ProtectedRoute role="teacher">
+            <AppLayout /> 
+          </ProtectedRoute>
+        }
+      >
+        <Route
+          path="dashboard"
+          element={
+            <ProtectedRoute permission="dashboard.view">
+              <AdminDashboard /> {/* Shared dashboard component */}
+            </ProtectedRoute>
+          }
+        />
+      </Route>
+
+      {/* ==========================
+          STUDENT PORTAL
+      ========================== */}
+    {/* ==========================
+    STUDENT PORTAL
+========================== */}
+    <Route
+      path="/student"
+      element = {
+        <ProtectedRoute role="student"> {/* Lowercase matching your API */}
+          <AppLayout />
+        </ProtectedRoute>
+      }
+    >
+      <Route path="dashboard" element={<ProtectedRoute permission="dashboard.view"><AdminDashboard /></ProtectedRoute>} />
+
+      {/* Add this so students can load the students page! */}
+      <Route path="students" element={<ProtectedRoute permission="student.view"><Student /></ProtectedRoute>} />
+      <Route path="teachers" element={<ProtectedRoute permission="teacher.view"><Teacher /></ProtectedRoute>} />
+      <Route path="departments" element={<ProtectedRoute permission="department.view"><Department /></ProtectedRoute>} />
+      <Route path="role_permission" element={<ProtectedRoute permission="role_permission.view"><RolePermission /></ProtectedRoute>} />
+      <Route path="users" element={<ProtectedRoute permission="user.view"><User /></ProtectedRoute>} />
+    </Route>
+
+      {/* ==========================
+          Error & Fallback Routes
+      ========================== */}
+      <Route path="/403" element={<Forbidden />} />
+
+      {/* Default Route */}
+      <Route path="/" element={<Navigate to="/login" replace />} />
+
+      {/* 404 Route */}
       <Route path="*" element={<Navigate to="/login" replace />} />
     </Routes>
   );
