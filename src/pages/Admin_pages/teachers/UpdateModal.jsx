@@ -21,9 +21,8 @@ const UpdateModal = ({
     email: teacher?.email || "",
     address: teacher?.address || "",
     department_id: teacher?.department_id || "",
-    class_id: teacher?.class_id || "",
     hire_date: teacher?.hire_date || "",
-    status: teacher?.status || "Active",
+    status: teacher?.status || "Active" || "Inactive",
     photo: null,
   });
 
@@ -170,15 +169,33 @@ const UpdateModal = ({
             className="swal2-input"
             placeholder="Phone Number"
           />
-
-          <input
-            type="date"
-            name="date_of_birth"
-            value={formData.date_of_birth}
-            onChange={handleChange}
-            className="swal2-input"
-          />
-
+          <div className="form-control-group">
+            <label htmlFor="date_of_birth" className="form-input-label">
+             Date of Birth
+            </label>
+            <input
+              id="date_of_birth"
+              type="date"
+              name="date_of_birth"
+              className="swal2-input"
+              value={formData.date_of_birth}
+              onChange={handleChange}
+            />
+          </div>
+          <div className="form-control-group">
+            <label htmlFor="hire_date" className="form-input-label">
+              Hire Date
+            </label>
+            <input
+              id="hire_date"
+              type="date"
+              name="hire_date"
+              className="swal2-input"
+              value={formData.hire_date}
+              onChange={handleChange}
+              required
+            />
+          </div>
           <input
             type="date"
             name="hire_date"
@@ -214,22 +231,6 @@ const UpdateModal = ({
               ))}
           </select>
 
-          <select
-            name="class_id"
-            value={formData.class_id}
-            onChange={handleChange}
-            className="swal2-select"
-          >
-            <option value="" disabled>
-              Select Class
-            </option>
-            {Array.isArray(classes) &&
-              classes.map((item) => (
-                <option key={item.id} value={item.id}>
-                  {item.class_name}
-                </option>
-              ))}
-          </select>
 
           <select
             name="status"
@@ -238,7 +239,7 @@ const UpdateModal = ({
             className="swal2-select"
           >
             <option value="Active">Active</option>
-            <option value="Suspended">Suspended</option>
+            <option value="Inactive">Inactive</option>
           </select>
 
           <textarea

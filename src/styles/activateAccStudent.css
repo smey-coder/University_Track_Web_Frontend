@@ -7,13 +7,9 @@
   justify-content: center;
   align-items: center;
   padding: 20px;
-  background:
-  linear-gradient(
-    135deg,
-    rgba(99, 102, 241, 0.78),
-    rgba(37, 99, 235, 0.82)
-  ),
-  url("/images/bg.jpg");
+  background: 
+    linear-gradient(rgba(15, 23, 42, 0.45), rgba(15, 23, 42, 0.45)),
+    url("/images/bg.jpg");
   background-size: cover;
   background-position: center;
   box-sizing: border-box;
@@ -53,7 +49,11 @@
 ========================================== */
 .welcome-section {
   width: 40%;
-  background: linear-gradient(160deg, #2563eb, #1e40af);
+  background: linear-gradient(
+    160deg,
+    #3bbade,
+    #2563eb
+);
   color: white;
   display: flex;
   flex-direction: column;
@@ -88,8 +88,12 @@
 }
 
 @keyframes floatImage {
-  0%, 100% { transform: translateY(0); }
-  50% { transform: translateY(-12px); }
+  0%, 100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-12px);
+  }
 }
 
 /* ==========================================
@@ -102,34 +106,26 @@
   align-items: center;
 }
 
-.auth-card {
+.activate-card-student{
   width: 100%;
   background: white;
 }
 
-.auth-card h2 {
+.activate-card-student h2 {
   text-align: center;
   color: #0f172a;
-  font-size: 32px;
+  font-size: 30px;
   font-weight: 700;
-  margin-bottom: 8px;
-  margin-top: 0;
-}
-
-.auth-card .subtitle {
-  color: #64748b;
-  font-size: 16px;
-  text-align: center;
-  margin-bottom: 35px;
+  margin-bottom: 30px;
   margin-top: 0;
 }
 
 /* ==========================================
-   MODERN INPUT DESIGN (FULL WIDTH & NO GLOW)
+   MODERN INPUT DESIGN (FIXED WIDTH)
 ========================================== */
 .input-group {
-  margin-bottom: 24px;
-  width: 100%;
+  margin-bottom: 20px;
+  width: 100%; /* Forces the group row to span full width */
 }
 
 .input-group label {
@@ -144,7 +140,7 @@
   position: relative;
   display: flex;
   align-items: center;
-  width: 100%;
+  width: 100%; /* 👈 FIXED: Stretches the flex container to full form width */
 }
 
 .input-icon {
@@ -158,8 +154,9 @@
   justify-content: center;
 }
 
-.input-box input {
-  width: 100%;
+.input-box input,
+.input-box select {
+  width: 100%; /* Stretches actual input elements inside the box */
   height: 52px;
   padding-left: 45px;
   padding-right: 15px;
@@ -168,8 +165,7 @@
   background: #f8fafc;
   color: #1e293b;
   font-size: 15px;
-  outline: none;       /* Removes default browser black/blue ring */
-  box-shadow: none;    /* Strips any initial shadow effect */
+  outline: none;
   transition: 0.3s;
 }
 
@@ -177,16 +173,46 @@
   color: #94a3b8;
 }
 
-.input-box input:hover {
+.input-box input:hover,
+.input-box select:hover {
   border-color: #94a3b8;
 }
 
-/* Focused State - Changes ONLY the border color, absolutely zero shadow glow */
-.input-box input:focus {
+.input-box input:focus,
+.input-box select:focus {
   background: white;
   border-color: #2563eb;
-  outline: none;
-  box-shadow: none !important;
+  box-shadow: 0 0 0 4px rgba(37, 99, 235, 0.15);
+}
+
+/* Field Specific Types */
+.input-box input[type="date"] {
+  color: #475569;
+}
+
+.input-box select {
+  appearance: none;
+  cursor: pointer;
+  background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='24' height='24' viewBox='0 0 24 24' fill='none' stroke='%2364748b' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'><polyline points='6 9 12 15 18 9'></polyline></svg>");
+  background-repeat: no-repeat;
+  background-position: right 15px center;
+  background-size: 16px;
+  padding-right: 40px;
+}
+
+/* Error Typography & Borders */
+.input-box.error input,
+.input-box.error select {
+  border-color: #dc2626;
+  background-color: #fef2f2;
+}
+
+.error-text {
+  display: block;
+  color: #dc2626;
+  font-size: 13px;
+  margin-top: 6px;
+  font-weight: 500;
 }
 
 /* ==========================================
@@ -194,9 +220,9 @@
 ========================================== */
 .submit-btn {
   width: 100%;
-  height: 52px;
+  height: 50px;
   border: none;
-  border-radius: 14px;
+  border-radius: 12px;
   background: #2563eb;
   color: white;
   font-size: 16px;
@@ -204,18 +230,11 @@
   cursor: pointer;
   transition: 0.3s;
   margin-top: 10px;
-  outline: none;
-  box-shadow: none;
 }
 
 .submit-btn:hover {
   background: #1d4ed8;
   transform: translateY(-2px);
-}
-
-.submit-btn:focus {
-  outline: none;
-  box-shadow: none !important;
 }
 
 .submit-btn:disabled {
@@ -224,26 +243,34 @@
   transform: none;
 }
 
-/* ==========================================
-   CARD FOOTER
-========================================== */
-.auth-footer {
-  margin-top: 25px;
-  font-size: 14px;
-  color: #64748b;
-  text-align: center;
+.back-link {
+  margin-top: 15px;
+  width: 100%;
 }
 
-.footer-link {
+.back-btn {
+  width: 100%;
+  height: 50px;
+  border-radius: 12px;
+  background: white;
   color: #2563eb;
-  font-weight: 700;
-  text-decoration: none;
-  transition: 0.2s;
+  border: 1px solid #2563eb;
+  font-size: 16px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: 0.3s;
 }
 
-.footer-link:hover {
-  color: #1d4ed8;
-  text-decoration: underline;
+.back-btn:hover {
+  background: #2563eb;
+  color: white;
+}
+
+/* ==========================================
+   TOAST STYLING
+========================================== */
+.Toastify__toast {
+  font-size: 14px;
 }
 
 /* ==========================================
@@ -253,30 +280,37 @@
   .activate-container {
     flex-direction: column;
   }
+
   .welcome-section {
     width: 100%;
     padding: 35px 20px;
   }
+
   .welcome-section h1 {
     font-size: 34px;
   }
+
   .welcome-section img {
     width: 220px;
     height: 150px;
   }
+
   .form-section {
     width: 100%;
     padding: 35px 25px;
   }
 }
+
 @media (max-width: 480px) {
   .auth-page {
     padding: 10px;
   }
+
   .activate-container {
     border-radius: 20px;
   }
+
   .auth-card h2 {
-    font-size: 26px;
+    font-size: 24px;
   }
 }

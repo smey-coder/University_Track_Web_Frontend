@@ -258,8 +258,9 @@ const CreateModal = ({
             value={formData.status}
             onChange={handleChange}
           >
+            <option value="">Select Status</option>
+            <option value="Inactive">Inactive</option>
             <option value="Active">Active</option>
-            <option value="Suspended">Inactive</option>
           </select>
 
           {/* Address */}

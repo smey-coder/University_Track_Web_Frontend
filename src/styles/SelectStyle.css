@@ -1,5 +1,5 @@
 /* ==========================================
-   AUTH PAGE BACKGROUND
+   LAYOUT & CONTAINERS (Consistent with main auth)
 ========================================== */
 .auth-page {
   min-height: 100vh;
@@ -7,13 +7,9 @@
   justify-content: center;
   align-items: center;
   padding: 20px;
-  background:
-  linear-gradient(
-    135deg,
-    rgba(99, 102, 241, 0.78),
-    rgba(37, 99, 235, 0.82)
-  ),
-  url("/images/bg.jpg");
+  background: 
+    linear-gradient(rgba(15, 23, 42, 0.45), rgba(15, 23, 42, 0.45)),
+    url("/images/bg.jpg");
   background-size: cover;
   background-position: center;
   box-sizing: border-box;
@@ -23,9 +19,6 @@
   box-sizing: border-box;
 }
 
-/* ==========================================
-   MAIN CONTAINER
-========================================== */
 .activate-container {
   width: 1100px;
   max-width: 100%;
@@ -49,7 +42,7 @@
 }
 
 /* ==========================================
-   LEFT WELCOME SECTION
+   LEFT PANEL STYLE
 ========================================== */
 .welcome-section {
   width: 40%;
@@ -93,7 +86,7 @@
 }
 
 /* ==========================================
-   FORM SECTION & CARD
+   RIGHT SELECTION CARD CONTENT
 ========================================== */
 .form-section {
   width: 60%;
@@ -102,12 +95,15 @@
   align-items: center;
 }
 
-.auth-card {
+.selection-card {
   width: 100%;
   background: white;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 }
 
-.auth-card h2 {
+.selection-card h2 {
   text-align: center;
   color: #0f172a;
   font-size: 32px;
@@ -116,7 +112,7 @@
   margin-top: 0;
 }
 
-.auth-card .subtitle {
+.selection-card .subtitle {
   color: #64748b;
   font-size: 16px;
   text-align: center;
@@ -125,129 +121,88 @@
 }
 
 /* ==========================================
-   MODERN INPUT DESIGN (FULL WIDTH & NO GLOW)
+   ROLE BUTTONS (FULL WIDTH, NO GLOW)
 ========================================== */
-.input-group {
-  margin-bottom: 24px;
+.role-options-container {
   width: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  margin-bottom: 35px;
 }
 
-.input-group label {
-  display: block;
-  margin-bottom: 8px;
-  font-size: 14px;
-  font-weight: 600;
-  color: #334155;
-}
-
-.input-box {
-  position: relative;
+.role-button {
+  width: 100%;
+  height: 65px;
   display: flex;
   align-items: center;
-  width: 100%;
-}
-
-.input-icon {
-  position: absolute;
-  left: 15px;
-  font-size: 18px;
-  color: #64748b;
-  pointer-events: none;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
-
-.input-box input {
-  width: 100%;
-  height: 52px;
-  padding-left: 45px;
-  padding-right: 15px;
-  border-radius: 14px;
+  padding: 0 25px;
+  border-radius: 16px;
   border: 1.5px solid #cbd5e1;
   background: #f8fafc;
+  cursor: pointer;
+  outline: none;
+  box-shadow: none;
+  transition: all 0.25s ease;
+}
+
+.role-emoji {
+  font-size: 24px;
+  margin-right: 15px;
+}
+
+.role-text {
+  font-size: 16px;
+  font-weight: 600;
   color: #1e293b;
-  font-size: 15px;
-  outline: none;       /* Removes default browser black/blue ring */
-  box-shadow: none;    /* Strips any initial shadow effect */
-  transition: 0.3s;
 }
 
-.input-box input::placeholder {
-  color: #94a3b8;
-}
-
-.input-box input:hover {
-  border-color: #94a3b8;
-}
-
-/* Focused State - Changes ONLY the border color, absolutely zero shadow glow */
-.input-box input:focus {
+/* Hover and Focus States */
+.role-button:hover,
+.role-button:focus {
   background: white;
   border-color: #2563eb;
   outline: none;
   box-shadow: none !important;
 }
 
-/* ==========================================
-   BUTTONS & LINKS
-========================================== */
-.submit-btn {
-  width: 100%;
-  height: 52px;
-  border: none;
-  border-radius: 14px;
-  background: #2563eb;
-  color: white;
-  font-size: 16px;
-  font-weight: 700;
-  cursor: pointer;
-  transition: 0.3s;
-  margin-top: 10px;
-  outline: none;
-  box-shadow: none;
-}
-
-.submit-btn:hover {
-  background: #1d4ed8;
-  transform: translateY(-2px);
-}
-
-.submit-btn:focus {
-  outline: none;
-  box-shadow: none !important;
-}
-
-.submit-btn:disabled {
-  background: #94a3b8;
-  cursor: not-allowed;
-  transform: none;
+.role-button:hover .role-text,
+.role-button:focus .role-text {
+  color: #2563eb;
 }
 
 /* ==========================================
    CARD FOOTER
 ========================================== */
 .auth-footer {
-  margin-top: 25px;
   font-size: 14px;
   color: #64748b;
   text-align: center;
 }
 
-.footer-link {
+.footer-login-btn {
+  background: none;
+  border: none;
   color: #2563eb;
+  font-size: 14px;
   font-weight: 700;
-  text-decoration: none;
+  cursor: pointer;
+  padding: 0 5px;
+  outline: none;
+  box-shadow: none;
   transition: 0.2s;
 }
 
-.footer-link:hover {
+.footer-login-btn:hover,
+.footer-login-btn:focus {
   color: #1d4ed8;
   text-decoration: underline;
+  outline: none;
+  box-shadow: none !important;
 }
 
 /* ==========================================
-   RESPONSIVE DESIGN (TABLET & MOBILE)
+   RESPONSIVE LAYOUT (MOBILE)
 ========================================== */
 @media (max-width: 900px) {
   .activate-container {
@@ -269,6 +224,7 @@
     padding: 35px 25px;
   }
 }
+
 @media (max-width: 480px) {
   .auth-page {
     padding: 10px;
@@ -276,7 +232,11 @@
   .activate-container {
     border-radius: 20px;
   }
-  .auth-card h2 {
+  .selection-card h2 {
     font-size: 26px;
+  }
+  .role-button {
+    height: 58px;
+    padding: 0 20px;
   }
 }

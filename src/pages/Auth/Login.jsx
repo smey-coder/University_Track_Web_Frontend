@@ -35,7 +35,6 @@ const Login = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-
     setIsSubmitting(true);
 
     const loadingToast = toast.loading("Loading account...", {
@@ -43,19 +42,12 @@ const Login = () => {
     });
 
     try {
-      // Call Login API
       const data = await login(email, password);
-
-      // Save Token
       localStorage.setItem("token", data.token);
-
-      // Save User
       localStorage.setItem("user", JSON.stringify(data.user));
 
       const user = data.user;
-
       const userName = user.username;
-
       const roles = user.roles || [];
 
       toast.dismiss(loadingToast);
@@ -73,97 +65,96 @@ const Login = () => {
         } else if (roles.includes("Student")) {
           navigate("/student/dashboard");
         } else {
-          toast.error("No role assigned.", {
-            style: errorStyle,
-          });
-
+          toast.error("No role assigned.", { style: errorStyle });
           localStorage.removeItem("token");
           localStorage.removeItem("user");
-
           setIsSubmitting(false);
         }
       }, 1200);
     } catch (err) {
       toast.dismiss(loadingToast);
-
       setIsSubmitting(false);
 
-      const message =
-        err.response?.data?.message ||
-        "Login failed. Please check your credentials.";
-
-      toast.error(`❌ ${message}`, {
-        style: errorStyle,
-      });
+      const message = err.response?.data?.message || "Login failed. Please check your credentials.";
+      toast.error(`❌ ${message}`, { style: errorStyle });
     }
   };
 
   return (
-    <div className="auth-container">
-      <div className="auth-card">
+    <div className="auth-page">
+      <div className="activate-container">
+        
+        {/* LEFT SIDE: WELCOME PANEL */}
+        <div className="welcome-section">
+          <h1>Welcome</h1>
+          <p>
+            Welcome to University Track
+            <br />
+            Smart University Management System
+          </p>
+          <img src="/images/animation_university.png" alt="University" />
+        </div>
 
-        <h2 className="auth-title">
-          Welcome Back
-        </h2>
+        {/* RIGHT SIDE: FORM CARD */}
+        <div className="form-section">
+          <div className="auth-card">
+            <h2>Welcome Back</h2>
+            <p className="subtitle">Sign in to University Track</p>
 
-        <p className="auth-subtitle">
-          Sign in to University Track
-        </p>
+            <form onSubmit={handleSubmit}>
+              
+              {/* Email Input */}
+              <div className="input-group">
+                <label>Email Address</label>
+                <div className="input-box">
+                  <span className="input-icon">✉️</span>
+                  <input
+                    type="email"
+                    placeholder="Enter email"
+                    value={email}
+                    onChange={(e) => setEmail(e.target.value)}
+                    disabled={isSubmitting}
+                    required
+                  />
+                </div>
+              </div>
 
-        <form onSubmit={handleSubmit}>
+              {/* Password Input */}
+              <div className="input-group">
+                <label>Password</label>
+                <div className="input-box">
+                  <span className="input-icon">🔒</span>
+                  <input
+                    type="password"
+                    placeholder="Enter password"
+                    value={password}
+                    onChange={(e) => setPassword(e.target.value)}
+                    disabled={isSubmitting}
+                    required
+                  />
+                </div>
+              </div>
 
-          <div className="auth-input-group">
+              {/* Submit Button */}
+              <button
+                type="submit"
+                className="submit-btn"
+                disabled={isSubmitting}
+              >
+                {isSubmitting ? "Signing In..." : "Sign In"}
+              </button>
 
-            <label className="auth-label">
-              Email Address
-            </label>
+            </form>
 
-            <input
-              type="email"
-              className="auth-input"
-              placeholder="Enter email"
-              value={email}
-              onChange={(e) => setEmail(e.target.value)}
-              disabled={isSubmitting}
-              required
-            />
+            <div className="auth-footer">
+              Don't have an account?{" "}
+              <Link to="/activate" className="footer-link">
+                Activate Account
+              </Link>
+            </div>
 
           </div>
-
-          <div className="auth-input-group">
-
-            <label className="auth-label">
-              Password
-            </label>
-
-            <input
-              type="password"
-              className="auth-input"
-              placeholder="Enter password"
-              value={password}
-              onChange={(e) => setPassword(e.target.value)}
-              disabled={isSubmitting}
-              required
-            />
-
-          </div>
-
-          <button
-            type="submit"
-            className="auth-primary-button"
-            disabled={isSubmitting}
-          >
-            {isSubmitting ? "Signing In..." : "Sign In"}
-          </button>
-
-        </form>
-
-        <p className="auth-footer-text">
-          Don't have an account?{" "}
-          <Link to="/activate" className="auth-link">
-            Activate Account
-          </Link>
-        </p>
+        </div>
 
       </div>
     </div>

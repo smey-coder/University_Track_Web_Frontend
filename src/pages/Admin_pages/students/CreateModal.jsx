@@ -243,7 +243,9 @@ const CreateModal = ({
             value={formData.status}
             onChange={handleChange}
           >
+            <option value="Pending">Pending</option>
             <option value="Active">Active</option>
+            <option value="Graduated">Graduated</option>
             <option value="Suspended">Suspended</option>
           </select>
 
