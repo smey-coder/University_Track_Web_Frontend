@@ -1,0 +1,483 @@
+/* ==========================================
+   ASSIGNMENT PAGE
+========================================== */
+
+.assignment-page-wrapper {
+  padding: 25px;
+
+  background: #f8fafc;
+
+  min-height: 100vh;
+}
+
+/* ==========================================
+   HEADER
+========================================== */
+
+.assignment-header-panel {
+  background: white;
+
+  border-radius: 20px;
+
+  padding: 25px 30px;
+
+  display: flex;
+
+  justify-content: space-between;
+
+  align-items: center;
+
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
+
+  margin-bottom: 20px;
+}
+
+.assignment-header-panel h2 {
+  margin: 0;
+
+  font-size: 28px;
+
+  font-weight: 700;
+
+  color: #0f172a;
+}
+
+.assignment-header-panel p {
+  margin-top: 8px;
+
+  color: #64748b;
+}
+
+/* ADD BUTTON */
+
+.add-assignment-btn {
+  background: #2563eb;
+
+  color: white;
+
+  border: none;
+
+  padding: 12px 22px;
+
+  border-radius: 12px;
+
+  font-weight: 600;
+
+  cursor: pointer;
+
+  transition: 0.3s;
+}
+
+.add-assignment-btn:hover {
+  background: #1d4ed8;
+
+  transform: translateY(-2px);
+}
+
+/* ==========================================
+ SEARCH
+========================================== */
+
+.search-filter-card {
+  background: white;
+
+  padding: 20px;
+
+  border-radius: 18px;
+
+  margin-bottom: 20px;
+}
+
+.search-filter-card input {
+  width: 100%;
+
+  height: 45px;
+
+  border-radius: 12px;
+
+  border: 1px solid #cbd5e1;
+
+  padding: 0 15px;
+
+  outline: none;
+}
+
+.search-filter-card input:focus {
+  border-color: #2563eb;
+
+  box-shadow: 0 0 0 4px rgba(37, 99, 235, 0.15);
+}
+
+/* ==========================================
+ TABLE
+========================================== */
+
+.table-container-card {
+  background: white;
+
+  border-radius: 20px;
+
+  overflow: hidden;
+
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
+}
+
+.assignment-table {
+  width: 100%;
+
+  border-collapse: collapse;
+}
+
+.assignment-table th {
+  background: #f1f5f9;
+
+  padding: 15px;
+
+  text-align: left;
+
+  color: #334155;
+}
+
+.assignment-table td {
+  padding: 15px;
+
+  border-bottom: 1px solid #e2e8f0;
+}
+
+.assignment-table tr:hover {
+  background: #f8fafc;
+}
+
+.clickable-name {
+  color: #2563eb;
+
+  cursor: pointer;
+
+  font-weight: 600;
+}
+
+/* ==========================================
+ BUTTON
+========================================== */
+
+.edit-btn {
+  background: #3b82f6;
+
+  color: white;
+
+  border: none;
+
+  padding: 8px 14px;
+
+  border-radius: 8px;
+
+  margin-right: 8px;
+
+  cursor: pointer;
+}
+
+.delete-btn {
+  background: #ef4444;
+
+  color: white;
+
+  border: none;
+
+  padding: 8px 14px;
+
+  border-radius: 8px;
+
+  cursor: pointer;
+}
+
+/* ==========================================
+ BADGE
+========================================== */
+
+.badge {
+  padding: 6px 12px;
+
+  border-radius: 20px;
+
+  font-size: 13px;
+
+  font-weight: 600;
+}
+
+.bg-success {
+  background: #22c55e;
+
+  color: white;
+}
+
+.bg-danger {
+  background: #ef4444;
+
+  color: white;
+}
+
+/* ==========================================
+ MODAL OVERLAY
+========================================== */
+
+.modal-overlay {
+  position: fixed;
+
+  inset: 0;
+
+  background: rgba(15, 23, 42, 0.55);
+
+  display: flex;
+
+  justify-content: center;
+
+  align-items: center;
+
+  z-index: 999;
+}
+
+/* ==========================================
+ MODAL
+========================================== */
+
+.assignment-modal {
+  width: 600px;
+
+  max-width: 95%;
+
+  background: white;
+
+  border-radius: 20px;
+
+  box-shadow: 0 25px 60px rgba(0, 0, 0, 0.3);
+
+  max-height: 90vh;
+
+  display: flex;
+
+  flex-direction: column;
+
+  overflow: hidden;
+}
+
+/* ==========================================
+ HEADER
+========================================== */
+
+.modal-header {
+  display: flex;
+
+  justify-content: space-between;
+
+  align-items: center;
+
+  padding: 20px 25px;
+
+  border-bottom: 1px solid #e2e8f0;
+}
+
+.modal-header h3 {
+  margin: 0;
+
+  color: #0f172a;
+}
+
+.close-btn {
+  border: none;
+
+  background: #fee2e2;
+
+  color: #dc2626;
+
+  width: 35px;
+
+  height: 35px;
+
+  border-radius: 50%;
+
+  cursor: pointer;
+}
+
+/* ==========================================
+ FORM SCROLL
+========================================== */
+
+.assignment-form {
+  padding: 25px;
+
+  overflow-y: auto;
+
+  max-height: 70vh;
+}
+
+/* Custom scrollbar */
+
+.assignment-form::-webkit-scrollbar {
+  width: 8px;
+}
+
+.assignment-form::-webkit-scrollbar-thumb {
+  background: #cbd5e1;
+
+  border-radius: 10px;
+}
+
+/* ==========================================
+ INPUT
+========================================== */
+
+.form-group {
+  margin-bottom: 18px;
+}
+
+.form-group label {
+  display: block;
+
+  margin-bottom: 7px;
+
+  font-size: 14px;
+
+  font-weight: 600;
+
+  color: #334155;
+}
+
+.form-group input,
+.form-group select,
+.form-group textarea {
+  width: 100%;
+
+  padding: 12px 15px;
+
+  border-radius: 12px;
+
+  border: 1px solid #cbd5e1;
+
+  outline: none;
+
+  font-size: 14px;
+
+  background: #f8fafc;
+
+  transition: 0.3s;
+}
+
+.form-group textarea {
+  resize: none;
+}
+
+.form-group input:focus,
+.form-group select:focus,
+.form-group textarea:focus {
+  background: white;
+
+  border-color: #2563eb;
+
+  box-shadow: 0 0 0 4px rgba(37, 99, 235, 0.15);
+}
+
+/* ==========================================
+ FOOTER
+========================================== */
+
+.modal-footer {
+  padding: 20px 25px;
+
+  border-top: 1px solid #e2e8f0;
+
+  display: flex;
+
+  justify-content: flex-end;
+
+  gap: 12px;
+}
+
+.cancel-btn {
+  background: #94a3b8;
+
+  color: white;
+
+  border: none;
+
+  padding: 12px 22px;
+
+  border-radius: 10px;
+
+  cursor: pointer;
+}
+
+.save-btn {
+  background: #2563eb;
+
+  color: white;
+
+  border: none;
+
+  padding: 12px 22px;
+
+  border-radius: 10px;
+
+  cursor: pointer;
+}
+
+.save-btn:hover {
+  background: #1d4ed8;
+}
+
+/* ==========================================
+ SHOW MODAL
+========================================== */
+
+.show-content {
+  padding: 25px;
+
+  overflow-y: auto;
+}
+
+.show-row {
+  display: flex;
+
+  justify-content: space-between;
+
+  padding: 12px 0;
+
+  border-bottom: 1px solid #e2e8f0;
+}
+
+.show-row strong {
+  color: #334155;
+}
+
+.show-row span {
+  color: #64748b;
+
+  text-align: right;
+}
+
+/* ==========================================
+ MOBILE
+========================================== */
+
+@media (max-width: 768px) {
+  .assignment-header-panel {
+    flex-direction: column;
+
+    gap: 20px;
+
+    align-items: flex-start;
+  }
+
+  .assignment-table {
+    font-size: 13px;
+  }
+
+  .assignment-modal {
+    width: 95%;
+  }
+
+  .show-row {
+    flex-direction: column;
+
+    gap: 8px;
+  }
+}

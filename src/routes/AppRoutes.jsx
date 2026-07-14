@@ -28,6 +28,8 @@ import User from "../pages/Admin_pages/users/index";
 import Permission from "../pages/Admin_pages/permissions";
 import Role from "../pages/Admin_pages/roles";
 import RolePermission from "../pages/Admin_pages/role_permissions";
+import Course from "../pages/Admin_pages/courses";
+import Assignment from "../pages/Admin_pages/assignments";
 
 // ==============================
 // Error Page
@@ -67,7 +69,7 @@ export const AppRoutes = () => {
             <AppLayout />
           </ProtectedRoute>
         }
-      >
+        >
         <Route
           path="dashboard"
           element={
@@ -132,6 +134,22 @@ export const AppRoutes = () => {
             </ProtectedRoute>
           }
         />
+        <Route
+          path="courses"
+          element={
+            <ProtectedRoute permission="course.view">
+              <Course />
+            </ProtectedRoute>
+          }
+        />
+        <Route
+          path="assignments"
+          element={
+            <ProtectedRoute permission="assignment.view">
+              <Assignment />
+            </ProtectedRoute>
+          }
+        />
       </Route>
 
       {/* ==========================
@@ -153,14 +171,83 @@ export const AppRoutes = () => {
             </ProtectedRoute>
           }
         />
+        <Route
+          path="users"
+          element={
+            <ProtectedRoute permission="user.view">
+              <User />
+            </ProtectedRoute>
+          }
+        />
+        <Route
+          path="roles"
+          element={
+            <ProtectedRoute permission="role.view">
+              <Role />
+            </ProtectedRoute>
+          }
+        />
+        <Route
+          path="permissions"
+          element={
+            <ProtectedRoute permission="permission.view">
+              <Permission />
+            </ProtectedRoute>
+          }
+        />
+        <Route
+          path="role_permission"
+          element={
+            <ProtectedRoute permission="role_permission.view">
+              <RolePermission />
+            </ProtectedRoute>
+          }
+        />
+        <Route
+          path="students"
+          element={
+            <ProtectedRoute permission="student.view">
+              <Student />
+            </ProtectedRoute>
+          }
+        />
+        <Route
+          path="teachers"
+          element={
+            <ProtectedRoute permission="teacher.view">
+              <Teacher />
+            </ProtectedRoute>
+          }
+        />
+        <Route
+          path="departments"
+          element={
+            <ProtectedRoute permission="department.view">
+              <Department />
+            </ProtectedRoute>
+          }
+        />
+        <Route
+          path="courses"
+          element={
+            <ProtectedRoute permission="course.view">
+              <Course />
+            </ProtectedRoute>
+          }
+        />
+        <Route
+          path="assignments"
+          element={
+            <ProtectedRoute permission="assignment.view">
+              <Assignment />
+            </ProtectedRoute>
+          }
+        />
       </Route>
 
       {/* ==========================
           STUDENT PORTAL
       ========================== */}
-    {/* ==========================
-    STUDENT PORTAL
-========================== */}
     <Route
       path="/student"
       element = {
@@ -172,11 +259,83 @@ export const AppRoutes = () => {
       <Route path="dashboard" element={<ProtectedRoute permission="dashboard.view"><AdminDashboard /></ProtectedRoute>} />
 
       {/* Add this so students can load the students page! */}
-      <Route path="students" element={<ProtectedRoute permission="student.view"><Student /></ProtectedRoute>} />
+      {/* <Route path="students" element={<ProtectedRoute permission="student.view"><Student /></ProtectedRoute>} />
       <Route path="teachers" element={<ProtectedRoute permission="teacher.view"><Teacher /></ProtectedRoute>} />
       <Route path="departments" element={<ProtectedRoute permission="department.view"><Department /></ProtectedRoute>} />
       <Route path="role_permission" element={<ProtectedRoute permission="role_permission.view"><RolePermission /></ProtectedRoute>} />
-      <Route path="users" element={<ProtectedRoute permission="user.view"><User /></ProtectedRoute>} />
+      <Route path="users" element={<ProtectedRoute permission="user.view"><User /></ProtectedRoute>} /> */}
+      <Route
+          path="users"
+          element={
+            <ProtectedRoute permission="user.view">
+              <User />
+            </ProtectedRoute>
+          }
+        />
+        <Route
+          path="roles"
+          element={
+            <ProtectedRoute permission="role.view">
+              <Role />
+            </ProtectedRoute>
+          }
+        />
+        <Route
+          path="permissions"
+          element={
+            <ProtectedRoute permission="permission.view">
+              <Permission />
+            </ProtectedRoute>
+          }
+        />
+        <Route
+          path="role_permission"
+          element={
+            <ProtectedRoute permission="role_permission.view">
+              <RolePermission />
+            </ProtectedRoute>
+          }
+        />
+        <Route
+          path="students"
+          element={
+            <ProtectedRoute permission="student.view">
+              <Student />
+            </ProtectedRoute>
+          }
+        />
+        <Route
+          path="teachers"
+          element={
+            <ProtectedRoute permission="teacher.view">
+              <Teacher />
+            </ProtectedRoute>
+          }
+        />
+        <Route
+          path="departments"
+          element={
+            <ProtectedRoute permission="department.view">
+              <Department />
+            </ProtectedRoute>
+          }
+        />
+        <Route
+          path="courses"
+          element={
+            <ProtectedRoute permission="course.view">
+              <Course />
+            </ProtectedRoute>
+          }
+        />
+        <Route
+          path="assignments"
+          element={
+            <ProtectedRoute permission="assignment.view">
+              <Assignment />
+            </ProtectedRoute>
+          }
+        />
     </Route>
 
       {/* ==========================

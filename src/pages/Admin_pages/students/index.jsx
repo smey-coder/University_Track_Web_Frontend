@@ -5,6 +5,7 @@ import toast, { Toaster } from "react-hot-toast";
 import CreateModal from "./CreateModal";
 import UpdateModal from "./UpdateModal";
 import ShowModal from "./ShowModal";
+import { useAuth } from "../../../hooks/useAuth";
 import "./students.css";
 
 const Index = () => {
@@ -23,6 +24,19 @@ const Index = () => {
   // Pointers and visibility flags for split modals
   const [activeStudent, setActiveStudent] = useState(null);
   const [modalType, setModalType] = useState(null); // Values: 'create' | 'update' | 'show' | null
+
+  const { user } = useAuth();
+
+  // ===============================
+  // PERMISSION
+  // ===============================
+  const hasPermission = (permission) => {
+    return user?.permissions?.includes(permission) ?? false;
+  };
+  const canView = hasPermission("student.view");
+  const canCreate = hasPermission("student.create");
+  const canUpdate = hasPermission("student.update");
+  const canDelete = hasPermission("student.delete");
 
   // Centralized Toast Notification Styles
   const toastStyles = {
@@ -69,7 +83,6 @@ const Index = () => {
   // INITIALIZATION: Load data grids alongside drop-down tracking dependencies
   useEffect(() => {
     fetchStudents();
-
     const fetchDependencies = async () => {
       try {
         const response = await axios.get(
@@ -84,7 +97,6 @@ const Index = () => {
         console.error("Could not fetch validation lookup data.", err);
       }
     };
-
     fetchDependencies();
   }, []);
 
@@ -145,12 +157,16 @@ const Index = () => {
             student accounts.
           </p>
         </div>
-        <button
+        
+        {canCreate &&(
+          <button
           onClick={() => setModalType("create")}
           className="add-student-master-btn"
         >
           ➕ Register Student
         </button>
+        )}
+        
       </div>
 
       {/* Control Configuration Filter Row */}
@@ -215,16 +231,19 @@ const Index = () => {
                       </td>
                       <td style={{ textAlign: "center" }}>
                         <div className="action-row-buttons">
-                          <button
-                            onClick={() => {
-                              setActiveStudent(student);
-                              setModalType("update");
-                            }}
-                            className="row-edit-action-btn"
-                          >
-                            ✏️ Edit
-                          </button>
-                          <button
+                          {canUpdate && (
+                            <button
+                              onClick={() => {
+                                setActiveStudent(student);
+                                setModalType("update");
+                              }}
+                              className="row-edit-action-btn"
+                            >
+                              ✏️ Edit
+                            </button>
+                          )}
+                          {canDelete && (
+                            <button
                             onClick={() =>
                               handleDelete(
                                 student.id,
@@ -235,6 +254,7 @@ const Index = () => {
                           >
                             🗑️ Delete
                           </button>
+                          )}
                         </div>
                       </td>
                     </tr>

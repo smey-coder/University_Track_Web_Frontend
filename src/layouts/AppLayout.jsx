@@ -16,6 +16,7 @@ const AppLayout = () => {
 
   const [courseOpen, setCourseOpen] = useState(false);
   const [RBACOpen, setRBACOpen] = useState(false);
+  const [AssignmentOpen, setAssignmentOpen] = useState(false);
 
   // Helper function to check if a user has a specific permission
   // Handles cases where permissions might be an array or string
@@ -69,6 +70,8 @@ const AppLayout = () => {
   
   // Courses dropdown is visible if they can see courses or categories
   const canViewCourses = hasPermission("course.view") || hasPermission("category.view");
+
+  const canViewAssignment = hasPermission("assignment.view") || hasPermission("category.view");
 
   return (
     <div className={`admin-layout-wrapper ${darkMode ? "dark" : ""}`}>
@@ -186,14 +189,14 @@ const AppLayout = () => {
                   {hasPermission("course.view") && (
                     <li>
                       <NavLink to={`${getRolePrefix()}/courses`} className={({ isActive }) => (isActive ? "submenu-link active" : "submenu-link")}>
-                        📋 All Courses
+                        📋 Courses Management
                       </NavLink>
                     </li>
                   )}
                   {hasPermission("course.create") && (
                     <li>
                       <NavLink to={`${getRolePrefix()}/course/create`} className={({ isActive }) => (isActive ? "submenu-link active" : "submenu-link")}>
-                        ➕ Add Course
+                        ➕ Student Course
                       </NavLink>
                     </li>
                   )}
@@ -208,16 +211,30 @@ const AppLayout = () => {
               )}
             </li>
           )}
-
           {/* Assignments Link */}
-          {hasPermission("assignment.view") && (
+          {canViewAssignment && (
             <li>
-              <NavLink
-                to={`${getRolePrefix()}/assignments`}
-                className={({ isActive }) => (isActive ? "nav-link-item active" : "nav-link-item")}
-              >
-                📝 Assignments
-              </NavLink>
+              <button className="nav-link-item dropdown-btn" onClick={() => setAssignmentOpen(!AssignmentOpen)}>
+                📝 Assignments <span>{AssignmentOpen ? "▲" : "▼"}</span>
+              </button>
+              {AssignmentOpen && (
+                <ul className="submenu">
+                  {hasPermission("assignment.view") && (
+                    <li>
+                      <NavLink to={`${getRolePrefix()}/assignments`} className={({ isActive }) => (isActive ? "submenu-link active" : "submenu-link")}>
+                        📋 Assignment Management
+                      </NavLink>
+                    </li>
+                  )}
+                  {hasPermission("assignment.view") && (
+                    <li>
+                      <NavLink to={`${getRolePrefix()}/submission-assignments`} className={({ isActive }) => (isActive ? "submenu-link active" : "submenu-link")}>
+                        📥 Submissions
+                      </NavLink>
+                    </li>
+                  )}
+                </ul>
+              )}
             </li>
           )}
 
