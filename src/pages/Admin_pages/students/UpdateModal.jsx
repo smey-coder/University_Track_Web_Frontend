@@ -186,21 +186,35 @@ const UpdateModal = ({
             placeholder="Phone"
           />
 
-          <input
-            type="date"
-            name="date_of_birth"
-            value={formData.date_of_birth}
-            onChange={handleChange}
-            className="swal2-input"
-          />
+           {/* Date of Date */}
+          <div className="form-control-group">
+            <label htmlFor="date_of_birth" className="form-input-label">
+              Date of Birth
+            </label>
+            <input
+              id="date_of_birth"
+              type="date"
+              name="date_of_birth"
+              className="swal2-input"
+              value={formData.date_of_birth}
+              onChange={handleChange}
+            />
+          </div>
 
-          <input
-            type="date"
-            name="enrollment_date"
-            value={formData.enrollment_date}
-            onChange={handleChange}
-            className="swal2-input"
-          />
+           {/* Enrollment Date */}
+          <div className="form-control-group">
+            <label htmlFor="enrollment_date" className="form-input-label">
+              Enrollment Date
+            </label>
+            <input
+              id="enrollment_date"
+              type="date"
+              name="enrollment_date"
+              className="swal2-input"
+              value={formData.enrollment_date}
+              onChange={handleChange}
+            />
+          </div>
 
           {/* Gender */}
           <select
@@ -235,6 +249,9 @@ const UpdateModal = ({
             onChange={handleChange}
             className="swal2-select"
           >
+            <option value="">
+                No Class Assigned
+            </option>
             {classes.map((item) => (
               <option key={item.id} value={item.id}>
                 {item.class_name}

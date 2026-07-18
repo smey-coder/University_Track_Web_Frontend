@@ -1,0 +1,389 @@
+/* ===========================================
+   SCHEDULE GRID
+=========================================== */
+
+.schedule-grid{
+    display:grid;
+    grid-template-columns:repeat(auto-fill,minmax(360px,1fr));
+    gap:28px;
+    margin-top:30px;
+}
+
+/* ===========================================
+   CARD
+=========================================== */
+
+/* =========================================
+   SCHEDULE CARD
+========================================= */
+
+.schedule-card{
+    background:#ffffff;
+    border-radius:20px;
+    overflow:hidden;
+
+    border:1px solid #e5e7eb;
+
+    box-shadow:
+        0 8px 20px rgba(15,23,42,.06),
+        0 2px 8px rgba(15,23,42,.04);
+
+    transition:
+        transform .35s ease,
+        box-shadow .35s ease,
+        border-color .35s ease;
+
+    position:relative;
+}
+
+/* Top Gradient Line */
+.schedule-card::before{
+    content:"";
+    position:absolute;
+    top:0;
+    left:0;
+    width:100%;
+    height:5px;
+
+    background:linear-gradient(
+        90deg,
+        #2563eb,
+        #3b82f6,
+        #60a5fa
+    );
+}
+
+/* Hover Effect */
+.schedule-card:hover{
+
+    transform:translateY(-8px);
+
+    border-color:#3b82f6;
+
+    box-shadow:
+        0 25px 50px rgba(37,99,235,.18),
+        0 12px 30px rgba(0,0,0,.08);
+}
+
+/* Click Animation */
+.schedule-card:active{
+    transform:scale(.98);
+}
+
+/* Optional Glass Effect */
+.schedule-card::after{
+    content:"";
+    position:absolute;
+    inset:0;
+
+    background:linear-gradient(
+        180deg,
+        rgba(255,255,255,.12),
+        transparent 40%
+    );
+
+    pointer-events:none;
+}
+
+/* ===========================================
+   IMAGE
+=========================================== */
+
+.teacher-cover{
+
+    position:relative;
+
+    width:100%;
+
+    height:250px;
+
+    overflow:hidden;
+
+    background:#f1f5f9;
+
+}
+
+.teacher-cover img{
+
+    width:100%;
+
+    height:100%;
+
+    display:block;
+
+    object-fit:cover;
+
+    object-position:center;
+
+    transition:.45s;
+
+}
+
+.schedule-card:hover .teacher-cover img{
+
+    transform:scale(1.06);
+
+}
+
+/* Dark Overlay */
+
+.teacher-cover::after{
+
+    content:"";
+
+    position:absolute;
+
+    inset:0;
+
+    background:linear-gradient(
+        rgba(0,0,0,.05),
+        rgba(0,0,0,.65)
+    );
+
+}
+
+/* ===========================================
+   STATUS
+=========================================== */
+
+.status-badge{
+
+    position:absolute;
+
+    top:18px;
+
+    right:18px;
+
+    z-index:5;
+
+    padding:8px 16px;
+
+    border-radius:30px;
+
+    color:#fff;
+
+    font-size:12px;
+
+    font-weight:700;
+
+}
+
+.status-active{
+
+    background:#16a34a;
+
+}
+
+.status-finished{
+
+    background:#2563eb;
+
+}
+
+.status-pending{
+
+    background:#f59e0b;
+
+}
+
+/* ===========================================
+   TEACHER
+=========================================== */
+
+.teacher-overlay-info{
+
+    position:absolute;
+
+    left:20px;
+
+    bottom:20px;
+
+    color:white;
+
+    z-index:5;
+
+}
+
+.teacher-overlay-info h3{
+
+    margin:6px 0;
+
+    font-size:24px;
+
+}
+
+.role-tag{
+
+    font-size:13px;
+
+    opacity:.9;
+
+}
+
+/* ===========================================
+   BODY
+=========================================== */
+
+.schedule-content{
+
+    padding:24px;
+
+}
+
+.course-code{
+
+    display:inline-block;
+
+    background:#eff6ff;
+
+    color:#2563eb;
+
+    padding:6px 14px;
+
+    border-radius:30px;
+
+    font-size:13px;
+
+    font-weight:700;
+
+    margin-bottom:12px;
+
+}
+
+.schedule-content h2{
+
+    font-size:24px;
+
+    color:#1e293b;
+
+    margin-bottom:25px;
+
+}
+
+/* ===========================================
+   INFO
+=========================================== */
+
+.schedule-list{
+
+    display:grid;
+
+    grid-template-columns:repeat(2,1fr);
+
+    gap:15px;
+
+}
+
+.schedule-item{
+
+    background:#f8fafc;
+
+    border-radius:12px;
+
+    padding:15px;
+
+    transition:.3s;
+
+}
+
+.schedule-item:hover{
+
+    background:#eef4ff;
+
+}
+
+.item-label{
+
+    display:block;
+
+    color:#64748b;
+
+    font-size:13px;
+
+    margin-bottom:8px;
+
+}
+
+.item-value{
+
+    font-size:15px;
+
+    color:#1e293b;
+
+    font-weight:600;
+
+}
+
+/* ===========================================
+   BUTTON
+=========================================== */
+
+.schedule-btn{
+
+    margin-top:25px;
+
+    width:100%;
+
+    border:none;
+
+    background:#2563eb;
+
+    color:white;
+
+    padding:14px;
+
+    border-radius:12px;
+
+    font-size:16px;
+
+    font-weight:600;
+
+    cursor:pointer;
+
+    transition:.3s;
+
+}
+
+.schedule-btn:hover{
+
+    background:#1d4ed8;
+
+}
+
+/* ===========================================
+   RESPONSIVE
+=========================================== */
+
+@media(max-width:768px){
+
+.schedule-grid{
+
+grid-template-columns:1fr;
+
+}
+
+.teacher-cover{
+
+height:220px;
+
+}
+
+.schedule-list{
+
+grid-template-columns:1fr;
+
+}
+
+.schedule-content{
+
+padding:18px;
+
+}
+
+.schedule-content h2{
+
+font-size:20px;
+
+}
+
+}

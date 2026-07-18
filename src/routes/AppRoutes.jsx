@@ -30,7 +30,12 @@ import Role from "../pages/Admin_pages/roles";
 import RolePermission from "../pages/Admin_pages/role_permissions";
 import Course from "../pages/Admin_pages/courses";
 import Assignment from "../pages/Admin_pages/assignments";
-
+import AssignmentSubmission from "../pages/Admin_pages/assignment_submissions";
+import Class from "../pages/Admin_pages/classes";
+import ClassManager from "../pages/Admin_pages/class_managers";
+import ClassRoomManager from "../pages/Admin_pages/classrooms";
+import Schedule from "../pages/Admin_pages/SubjectSchedules";
+import StudentClassroom from "../pages/Admin_pages/student_classrooms";
 // ==============================
 // Error Page
 // ==============================
@@ -45,18 +50,9 @@ export const AppRoutes = () => {
       <Route element={<PublicRoute />}>
         <Route path="/login" element={<Login />} />
         <Route path="/register" element={<Register />} />
-        <Route
-        path="/activate"
-        element={<SelectAccountType />}
-        />
-        <Route
-        path="/activate/student"
-        element={<ActivateAccStudent />}
-        />
-        <Route
-        path="/activate/teacher"
-        element={<ActivateAccTeacher />}
-        />
+        <Route path="/activate" element={<SelectAccountType />} />
+        <Route path="/activate/student" element={<ActivateAccStudent />} />
+        <Route path="/activate/teacher" element={<ActivateAccTeacher />} />
       </Route>
 
       {/* ==========================
@@ -69,7 +65,7 @@ export const AppRoutes = () => {
             <AppLayout />
           </ProtectedRoute>
         }
-        >
+      >
         <Route
           path="dashboard"
           element={
@@ -150,6 +146,55 @@ export const AppRoutes = () => {
             </ProtectedRoute>
           }
         />
+        <Route
+          path="assignment_submissions"
+          element={
+            <ProtectedRoute permission="assignment_submission.view">
+              <AssignmentSubmission />
+            </ProtectedRoute>
+          }
+        />
+        <Route
+          path="classes"
+          element={
+            <ProtectedRoute permission="class.view">
+              <Class />
+            </ProtectedRoute>
+          }
+        />
+        <Route
+          path="class_managers"
+          element={
+            <ProtectedRoute permission="class_manager.view">
+              <ClassManager />
+            </ProtectedRoute>
+          }
+        />
+        <Route
+          path="class_rooms"
+          element={
+            <ProtectedRoute permission="class_room.view">
+              <ClassRoomManager />
+            </ProtectedRoute>
+          }
+        />
+         <Route
+          path="schedules"
+          element={
+            <ProtectedRoute permission="schedule.view">
+              <Schedule />
+            </ProtectedRoute>
+          }
+        
+        />
+        <Route
+          path="student_classrooms"
+          element={
+            <ProtectedRoute permission="student_classroom.view">
+              <StudentClassroom />
+            </ProtectedRoute>
+          }
+        />
       </Route>
 
       {/* ==========================
@@ -159,7 +204,7 @@ export const AppRoutes = () => {
         path="/teacher"
         element={
           <ProtectedRoute role="teacher">
-            <AppLayout /> 
+            <AppLayout />
           </ProtectedRoute>
         }
       >
@@ -243,28 +288,45 @@ export const AppRoutes = () => {
             </ProtectedRoute>
           }
         />
+        <Route
+          path="assignment_submissions"
+          element={
+            <ProtectedRoute permission="assignment_submission.view">
+              <AssignmentSubmission />
+            </ProtectedRoute>
+          }
+        />
       </Route>
 
       {/* ==========================
           STUDENT PORTAL
       ========================== */}
-    <Route
-      path="/student"
-      element = {
-        <ProtectedRoute role="student"> {/* Lowercase matching your API */}
-          <AppLayout />
-        </ProtectedRoute>
-      }
-    >
-      <Route path="dashboard" element={<ProtectedRoute permission="dashboard.view"><AdminDashboard /></ProtectedRoute>} />
+      <Route
+        path="/student"
+        element={
+          <ProtectedRoute role="student">
+            {" "}
+            {/* Lowercase matching your API */}
+            <AppLayout />
+          </ProtectedRoute>
+        }
+      >
+        <Route
+          path="dashboard"
+          element={
+            <ProtectedRoute permission="dashboard.view">
+              <AdminDashboard />
+            </ProtectedRoute>
+          }
+        />
 
-      {/* Add this so students can load the students page! */}
-      {/* <Route path="students" element={<ProtectedRoute permission="student.view"><Student /></ProtectedRoute>} />
+        {/* Add this so students can load the students page! */}
+        {/* <Route path="students" element={<ProtectedRoute permission="student.view"><Student /></ProtectedRoute>} />
       <Route path="teachers" element={<ProtectedRoute permission="teacher.view"><Teacher /></ProtectedRoute>} />
       <Route path="departments" element={<ProtectedRoute permission="department.view"><Department /></ProtectedRoute>} />
       <Route path="role_permission" element={<ProtectedRoute permission="role_permission.view"><RolePermission /></ProtectedRoute>} />
       <Route path="users" element={<ProtectedRoute permission="user.view"><User /></ProtectedRoute>} /> */}
-      <Route
+        <Route
           path="users"
           element={
             <ProtectedRoute permission="user.view">
@@ -336,7 +398,23 @@ export const AppRoutes = () => {
             </ProtectedRoute>
           }
         />
-    </Route>
+        <Route
+          path="assignment_submissions"
+          element={
+            <ProtectedRoute permission="assignment_submission.view">
+              <AssignmentSubmission />
+            </ProtectedRoute>
+          }
+        />
+        <Route
+          path="student_classrooms"
+          element={
+            <ProtectedRoute permission="student_classroom.view">
+              <StudentClassroom />
+            </ProtectedRoute>
+          }
+        />
+      </Route>
 
       {/* ==========================
           Error & Fallback Routes

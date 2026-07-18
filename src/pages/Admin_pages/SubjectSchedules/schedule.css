@@ -1,0 +1,523 @@
+/* ==========================================================================
+   SUBJECT SCHEDULE PAGE UTILITIES & RESET OVERRIDES
+   ========================================================================== */
+
+.schedule-page {
+  padding: 25px;
+  background: #f8fafc;
+  min-height: 100vh;
+  font-family: system-ui, -apple-system, sans-serif;
+}
+
+/* ==========================================================================
+   PAGE HEADER
+   ========================================================================== */
+
+.schedule-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 25px;
+  gap: 16px;
+}
+
+.schedule-header h1 {
+  font-size: 28px;
+  font-weight: 700;
+  color: #1e293b;
+  margin: 0 0 4px 0;
+}
+
+.schedule-header p {
+  color: #64748b;
+  margin: 0;
+  font-size: 14px;
+}
+
+/* ==========================================================================
+   GLOBAL ACTION BUTTONS
+   ========================================================================== */
+
+.action-buttons,
+.schedule-actions {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  justify-content: center;
+}
+
+/* Base Button Properties */
+.action-btn,
+.schedule-actions button,
+.pagination button {
+  width: 38px;
+  height: 38px;
+  border: none;
+  border-radius: 10px;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 16px;
+  font-weight: 600;
+  transition: transform 0.2s cubic-bezier(0.34, 1.56, 0.64, 1), 
+              background-color 0.2s ease, 
+              color 0.2s ease, 
+              box-shadow 0.2s ease;
+}
+
+/* Micro-interactions */
+.action-btn:hover,
+.schedule-actions button:hover,
+.pagination button:hover:not(:disabled) {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.08);
+}
+
+.action-btn:active,
+.schedule-actions button:active,
+.pagination button:active:not(:disabled) {
+  transform: scale(0.95);
+}
+
+/* Button Variants */
+.btn-view {
+  background: #e0f2fe;
+  color: #0284c7;
+}
+.btn-view:hover {
+  background: #0284c7;
+  color: #ffffff;
+}
+
+.btn-edit {
+  background: #fef3c7;
+  color: #d97706;
+}
+.btn-edit:hover {
+  background: #d97706;
+  color: #ffffff;
+}
+
+.btn-delete {
+  background: #fee2e2;
+  color: #dc2626;
+}
+.btn-delete:hover {
+  background: #dc2626;
+  color: #ffffff;
+}
+
+.btn-add {
+  background: #dcfce7;
+  color: #16a34a;
+}
+.btn-add:hover {
+  background: #16a34a;
+  color: #ffffff;
+}
+
+.btn-refresh {
+  background: #ede9fe;
+  color: #7c3aed;
+}
+.btn-refresh:hover {
+  background: #7c3aed;
+  color: #ffffff;
+}
+
+.btn-filter {
+  background: #ecfccb;
+  color: #65a30d;
+}
+.btn-filter:hover {
+  background: #65a30d;
+  color: #ffffff;
+}
+
+.btn-export {
+  background: #cffafe;
+  color: #0891b2;
+}
+.btn-export:hover {
+  background: #0891b2;
+  color: #ffffff;
+}
+
+/* Form Structural Buttons */
+.btn-save, .btn-cancel {
+  width: auto;
+  height: 42px;
+  padding: 0 22px;
+  font-size: 14px;
+  border-radius: 8px;
+}
+
+.btn-save {
+  background: #2563eb;
+  color: #ffffff;
+}
+.btn-save:hover {
+  background: #1d4ed8;
+}
+
+.btn-cancel {
+  background: #e5e7eb;
+  color: #374151;
+}
+.btn-cancel:hover {
+  background: #4b5563;
+  color: #ffffff;
+}
+
+/* ==========================================================================
+   FILTER COMPONENT
+   ========================================================================== */
+
+.schedule-filter {
+  background: #ffffff;
+  padding: 20px;
+  border-radius: 15px;
+  display: flex;
+  gap: 15px;
+  flex-wrap: wrap;
+  align-items: center;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.03);
+  margin-bottom: 20px;
+}
+
+.schedule-filter input,
+.schedule-filter select {
+  height: 42px;
+  padding: 0 15px;
+  border-radius: 8px;
+  border: 1px solid #cbd5e1;
+  outline: none;
+  font-size: 14px;
+  color: #1e293b;
+  background-color: #ffffff;
+  transition: border-color 0.2s ease, box-shadow 0.2s ease;
+}
+
+.schedule-filter input:focus,
+.schedule-filter select:focus {
+  border-color: #2563eb;
+  box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.15);
+}
+
+/* ==========================================================================
+   DATA TABLE CARD
+   ========================================================================== */
+
+.schedule-table-card {
+  background: #ffffff;
+  border-radius: 16px;
+  padding: 8px; /* Balanced spacing around inner table frame */
+  overflow-x: auto;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.04);
+  margin-bottom: 20px;
+}
+
+.schedule-table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.schedule-table th {
+  background: #f1f5f9;
+  padding: 14px 18px;
+  text-align: left;
+  font-size: 13px;
+  font-weight: 600;
+  color: #475569;
+  text-transform: uppercase;
+  letter-spacing: 0.03em;
+}
+
+.schedule-table td {
+  padding: 16px 18px;
+  border-bottom: 1px solid #e2e8f0;
+  color: #334155;
+  font-size: 14px;
+}
+
+.schedule-table tr:last-child td {
+  border-bottom: none;
+}
+
+.schedule-table tr:hover {
+  background: #f8fafc;
+}
+
+/* ==========================================================================
+   PAGINATION BLOCK
+   ========================================================================== */
+
+.pagination {
+  display: flex;
+  justify-content: flex-end;
+  gap: 8px;
+  margin-top: 15px;
+}
+
+.pagination button {
+  width: auto;
+  padding: 0 20px;
+  font-size: 14px;
+  background: #ffffff;
+  border: 1px solid #e2e8f0;
+  color: #475569;
+}
+
+.pagination button:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+  transform: none !important;
+  box-shadow: none !important;
+}
+
+/* ==========================================================================
+   STATUS BADGES
+   ========================================================================== */
+
+.status-active,
+.status-finished {
+  display: inline-flex;
+  align-items: center;
+  padding: 6px 14px;
+  border-radius: 20px;
+  font-size: 12px;
+  font-weight: 600;
+}
+
+.status-active {
+  background: #dcfce7;
+  color: #15803d;
+}
+
+.status-finished {
+  background: #f1f5f9;
+  color: #475569;
+}
+
+/* ==========================================================================
+   MODALS SYSTEM
+   ========================================================================== */
+
+.modal-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(15, 23, 42, 0.6);
+  backdrop-filter: blur(4px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1000;
+  animation: fade 0.25s ease-out;
+}
+
+@keyframes fade {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+.schedule-modal,
+.schedule-detail-modal {
+  background: #ffffff;
+  width: 600px;
+  max-width: 95%;
+  max-height: 90vh;
+  overflow-y: auto;
+  border-radius: 18px;
+  padding: 28px;
+  box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.15);
+  animation: slide 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+@keyframes slide {
+  from {
+    transform: translateY(-20px) scale(0.98);
+    opacity: 0;
+  }
+  to {
+    transform: translateY(0) scale(1);
+    opacity: 1;
+  }
+}
+
+/* Modal Internal Layouts */
+.modal-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  margin-bottom: 24px;
+}
+
+.modal-header h2 {
+  margin: 0 0 4px 0;
+  font-size: 22px;
+  color: #1e293b;
+}
+
+.modal-header p {
+  margin: 0;
+  color: #64748b;
+  font-size: 14px;
+}
+
+.close-btn {
+  width: 34px;
+  height: 34px;
+  border: none;
+  border-radius: 50%;
+  background: #fee2e2;
+  color: #dc2626;
+  cursor: pointer;
+  font-size: 18px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.2s ease;
+}
+
+.close-btn:hover {
+  background: #dc2626;
+  color: #ffffff;
+  transform: rotate(90deg);
+}
+
+/* Form Mechanics inside Modals */
+.schedule-modal label {
+  display: block;
+  margin-top: 16px;
+  font-weight: 600;
+  font-size: 14px;
+  color: #334155;
+}
+
+.schedule-modal input,
+.schedule-modal select {
+  width: 100%;
+  height: 42px;
+  margin-top: 6px;
+  padding: 0 14px;
+  border-radius: 8px;
+  border: 1px solid #cbd5e1;
+  font-size: 14px;
+  box-sizing: border-box;
+  outline: none;
+  transition: border-color 0.2s ease;
+}
+
+.schedule-modal input:focus,
+.schedule-modal select:focus {
+  border-color: #2563eb;
+}
+
+.time-row {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 15px;
+}
+
+.modal-actions {
+  display: flex;
+  justify-content: flex-end;
+  gap: 12px;
+  margin-top: 30px;
+}
+
+/* Detail Modals Grid View */
+.schedule-detail-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 15px;
+}
+
+.detail-card {
+  background: #f8fafc;
+  padding: 18px;
+  border-radius: 12px;
+  border: 1px solid #f1f5f9;
+}
+
+.detail-card span {
+  color: #64748b;
+  font-size: 13px;
+  font-weight: 500;
+}
+
+.detail-card h3 {
+  margin: 6px 0 0 0;
+  color: #1e293b;
+  font-size: 16px;
+}
+
+/* Time display boards inside detail views */
+.time-card {
+  margin-top: 20px;
+  background: #eff6ff;
+  padding: 20px;
+  border-radius: 15px;
+}
+
+.time-display {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 12px;
+}
+
+.time-display div {
+  background: #ffffff;
+  padding: 12px;
+  border-radius: 10px;
+  text-align: center;
+  box-shadow: 0 2px 4px rgba(37, 99, 235, 0.03);
+}
+
+.time-display label {
+  display: block;
+  color: #64748b;
+  font-size: 12px;
+  margin-bottom: 4px;
+}
+
+.time-display span {
+  font-weight: 600;
+  color: #1e293b;
+  font-size: 14px;
+}
+
+.schedule-status {
+  margin-top: 20px;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  font-size: 14px;
+  color: #475569;
+}
+
+/* ==========================================================================
+   RESPONSIVE DESIGN BREAKPOINTS
+   ========================================================================== */
+
+@media (max-width: 768px) {
+  .schedule-header {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .schedule-filter {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .time-row,
+  .schedule-detail-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .time-display {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}

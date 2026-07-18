@@ -174,23 +174,36 @@ const CreateModal = ({
           />
 
           {/* Date of Birth */}
-          <input
-            type="date"
-            name="date_of_birth"
-            className="swal2-input"
-            value={formData.date_of_birth}
-            onChange={handleChange}
-          />
+          <div className="form-control-group">
+            <label htmlFor="date_of_birth" className="form-input-label">
+             Date of birth
+            </label>
+            <input
+              id="date_of_birth"
+              type="date"
+              name="date_of_birth"
+              className="swal2-input"
+              value={formData.date_of_birth}
+              onChange={handleChange}
+              required
+            />
+          </div>
 
           {/* Enrollment Date */}
-          <input
-            type="date"
-            name="enrollment_date"
-            className="swal2-input"
-            value={formData.enrollment_date}
-            onChange={handleChange}
-          />
-
+          <div className="form-control-group">
+            <label htmlFor="enrollment_date" className="form-input-label">
+              Enrollment Date
+            </label>
+            <input
+              id="enrollment_date"
+              type="date"
+              name="enrollment_date"
+              className="swal2-input"
+              value={formData.enrollment_date}
+              onChange={handleChange}
+              required
+            />
+          </div>
           {/* Gender */}
           <select
             name="gender"
@@ -226,11 +239,11 @@ const CreateModal = ({
             value={formData.class_id}
             onChange={handleChange}
           >
+            <option value="">
+                No Class Assigned
+            </option>
             {classes.map((item) => (
-              <option
-                key={item.id}
-                value={item.id}
-              >
+              <option key={item.id} value={item.id}>
                 {item.class_name}
               </option>
             ))}

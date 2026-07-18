@@ -433,3 +433,82 @@
     display: none; /* Hides username labels on ultra-small mobile spaces */
   }
 }
+
+/* ===============================
+   USER PROFILE
+================================ */
+
+.user-profile-badge {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    background: white;
+    border: 1px solid #e5e7eb;
+    border-radius: 50px;
+    padding: 8px 14px;
+    cursor: pointer;
+    transition: all .3s ease;
+}
+
+.user-profile-badge:hover {
+    box-shadow: 0 5px 12px rgba(0,0,0,.12);
+}
+
+.profile-avatar {
+    width: 42px;
+    height: 42px;
+    border-radius: 50%;
+    object-fit: cover;
+    border: 2px solid #2563eb;
+}
+
+.user-info {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+}
+
+.user-info strong {
+    font-size: 14px;
+    color: #111827;
+}
+
+.user-info small {
+    color: #6b7280;
+    font-size: 12px;
+}
+
+.dropdown-arrow {
+    margin-left: auto;
+    color: #6b7280;
+}
+.user-menu {
+    position: absolute;
+    top: 65px;
+    right: 0;
+    width: 220px;
+    background: white;
+    border-radius: 12px;
+    box-shadow: 0 10px 30px rgba(0,0,0,.15);
+    overflow: hidden;
+    z-index: 999;
+}
+
+.user-menu button {
+    width: 100%;
+    border: none;
+    background: transparent;
+    padding: 14px 18px;
+    text-align: left;
+    cursor: pointer;
+    transition: .25s;
+}
+
+.user-menu button:hover {
+    background: #f3f4f6;
+}
+
+.logout-btn {
+    color: #dc2626;
+    font-weight: 600;
+}

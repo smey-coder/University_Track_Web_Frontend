@@ -17,6 +17,7 @@ const AppLayout = () => {
   const [courseOpen, setCourseOpen] = useState(false);
   const [RBACOpen, setRBACOpen] = useState(false);
   const [AssignmentOpen, setAssignmentOpen] = useState(false);
+  const [classOpen, setClassOpen] = useState(false);
 
   // Helper function to check if a user has a specific permission
   // Handles cases where permissions might be an array or string
@@ -64,6 +65,7 @@ const AppLayout = () => {
   const canViewStudents = hasPermission("student.view");
   const canViewTeachers = hasPermission("teacher.view");
   const canViewDepartments = hasPermission("department.view");
+  const canViewClassroom = hasPermission("class_room.view");
   
   // RBAC dropdown is visible if the user can see users, roles, or permissions
   const canViewRBAC = canViewUsers || hasPermission("role.view") || hasPermission("permission.view") || hasPermission("role_permission.view");
@@ -71,7 +73,9 @@ const AppLayout = () => {
   // Courses dropdown is visible if they can see courses or categories
   const canViewCourses = hasPermission("course.view") || hasPermission("category.view");
 
-  const canViewAssignment = hasPermission("assignment.view") || hasPermission("category.view");
+  const canViewAssignment = hasPermission("assignment.view") || hasPermission("assigment_submission.view");
+
+  const canViewClass = hasPermission("class.view" || hasPermission("class_manager.view"));
 
   return (
     <div className={`admin-layout-wrapper ${darkMode ? "dark" : ""}`}>
@@ -150,7 +154,7 @@ const AppLayout = () => {
                 to={`${getRolePrefix()}/students`} /* 👈 FIX: Changed from /admin/students to dynamic role prefix */
                 className={({ isActive }) => (isActive ? "nav-link-item active" : "nav-link-item")}
               >
-                👥 Students
+                👨‍🎓 Students
               </NavLink>
             </li>
           )}
@@ -165,7 +169,43 @@ const AppLayout = () => {
               </NavLink>
             </li>
           )}
-
+          {/* Class Dropdown Link */}
+          {canViewClass && (
+            <li>
+              <button className="nav-link-item dropdown-btn" onClick={() => setClassOpen(!classOpen)}>
+                📚 Class <span>{classOpen ? "▲" : "▼"}</span>
+              </button>
+              {classOpen && (
+                <ul className="submenu">
+                  {hasPermission("class.view") && (
+                    <li>
+                      <NavLink to={`${getRolePrefix()}/classes`} className={({ isActive }) => (isActive ? "submenu-link active" : "submenu-link")}>
+                        📋 Class
+                      </NavLink>
+                    </li>
+                  )}
+                  {hasPermission("class_manager.view") && (
+                    <li>
+                      <NavLink to={`${getRolePrefix()}/class_managers`} className={({ isActive }) => (isActive ? "submenu-link active" : "submenu-link")}>
+                        🗂 Class Manager
+                      </NavLink>
+                    </li>
+                  )}
+                </ul>
+              )}
+            </li>
+          )}
+          {/* Departments Link */}
+          {canViewClassroom && (
+            <li>
+              <NavLink
+                to={`${getRolePrefix()}/class_rooms`}
+                className={({ isActive }) => (isActive ? "nav-link-item active" : "nav-link-item")}
+              >
+                🏫 Classroom
+              </NavLink>
+            </li>
+          )}
           {/* Departments Link */}
           {canViewDepartments && (
             <li>
@@ -226,9 +266,9 @@ const AppLayout = () => {
                       </NavLink>
                     </li>
                   )}
-                  {hasPermission("assignment.view") && (
+                  {hasPermission("assignment_submission.view") && (
                     <li>
-                      <NavLink to={`${getRolePrefix()}/submission-assignments`} className={({ isActive }) => (isActive ? "submenu-link active" : "submenu-link")}>
+                      <NavLink to={`${getRolePrefix()}/assignment_submissions`} className={({ isActive }) => (isActive ? "submenu-link active" : "submenu-link")}>
                         📥 Submissions
                       </NavLink>
                     </li>
@@ -246,6 +286,18 @@ const AppLayout = () => {
                 className={({ isActive }) => (isActive ? "nav-link-item active" : "nav-link-item")}
               >
                 📅 Schedules
+              </NavLink>
+            </li>
+          )}
+
+          {/* Schedules Link */}
+          {hasPermission("student_classroom.view") && (
+            <li>
+              <NavLink
+                to={`${getRolePrefix()}/student_classrooms`}
+                className={({ isActive }) => (isActive ? "nav-link-item active" : "nav-link-item")}
+              >
+                📅 My Classroom
               </NavLink>
             </li>
           )}
@@ -281,19 +333,47 @@ const AppLayout = () => {
 
             {/* Profile Dropdown */}
             <div className="dropdown-container">
-              <button type="button" className="user-profile-badge" onClick={() => setProfileOpen((prev) => !prev)}>
-                👤
+              <button
+                type="button"
+                className="user-profile-badge"
+                onClick={() => setProfileOpen((prev) => !prev)}
+              >
+                <img
+                  src={
+                    user?.photo ||
+                    `https://ui-avatars.com/api/?name=${encodeURIComponent(
+                      user?.full_name || user?.username || "User"
+                    )}`
+                  }
+                  alt="Profile"
+                  className="profile-avatar"
+                />
+
                 <div className="user-info">
-                  <strong>{user?.username || "User"}</strong>
+                  <strong>{user?.full_name || user?.username}</strong>
                   <small>{user?.role || "User"}</small>
                 </div>
-                ▼
+
+                <span className="dropdown-arrow">▼</span>
               </button>
+
               {profileOpen && (
                 <div className="user-menu">
-                  <button type="button">👤 Profile</button>
-                  <button type="button">⚙ Settings</button>
-                  <button type="button" onClick={handleLogout}>🚪 Logout</button>
+                  <button type="button">
+                    👤 My Profile
+                  </button>
+
+                  <button type="button">
+                    ⚙ Account Settings
+                  </button>
+
+                  <button
+                    type="button"
+                    className="logout-btn"
+                    onClick={handleLogout}
+                  >
+                    🚪 Logout
+                  </button>
                 </div>
               )}
             </div>

@@ -1,0 +1,141 @@
+/* ===============================
+   TEACHER TAB CONTAINER
+================================ */
+
+.teacher-tab {
+  padding: 20px;
+}
+
+.teacher-tab h3 {
+  font-size: 22px;
+
+  margin-bottom: 20px;
+
+  color: #1e293b;
+}
+
+/* ===============================
+   TEACHER GRID
+================================ */
+
+.teacher-grid {
+  display: grid;
+
+  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+
+  gap: 20px;
+}
+
+/* ===============================
+   TEACHER CARD
+================================ */
+
+.teacher-card {
+  background: white;
+
+  border-radius: 15px;
+
+  padding: 20px;
+
+  display: flex;
+
+  align-items: center;
+
+  gap: 18px;
+
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.08);
+
+  transition: 0.3s ease;
+
+  border: 1px solid #e5e7eb;
+}
+
+.teacher-card:hover {
+  transform: translateY(-5px);
+
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.12);
+}
+
+/* ===============================
+   TEACHER IMAGE
+================================ */
+
+.teacher-card img {
+  width: 80px;
+
+  height: 80px;
+
+  border-radius: 50%;
+
+  object-fit: cover;
+
+  border: 3px solid #2563eb;
+}
+
+/* ===============================
+   TEACHER INFO
+================================ */
+
+.teacher-card h4 {
+  margin: 0 0 10px;
+
+  font-size: 18px;
+
+  color: #0f172a;
+}
+
+.teacher-card p {
+  margin: 5px 0;
+
+  font-size: 14px;
+
+  color: #475569;
+}
+
+/* ===============================
+   STATUS BADGE
+================================ */
+
+.status-active {
+  display: inline-block;
+
+  margin-top: 8px;
+
+  padding: 5px 12px;
+
+  border-radius: 20px;
+
+  background: #dcfce7;
+
+  color: #166534;
+
+  font-size: 13px;
+
+  font-weight: 600;
+}
+
+.status-inactive {
+  display: inline-block;
+
+  margin-top: 8px;
+
+  padding: 5px 12px;
+
+  border-radius: 20px;
+
+  background: #fee2e2;
+
+  color: #991b1b;
+
+  font-size: 13px;
+
+  font-weight: 600;
+}
+
+/* ===============================
+   EMPTY DATA
+================================ */
+
+.teacher-tab p {
+  color: #64748b;
+}

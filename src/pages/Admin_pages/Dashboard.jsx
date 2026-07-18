@@ -1,65 +1,77 @@
 import { useState, useEffect } from "react";
 import axios from "axios";
 import toast, { Toaster } from "react-hot-toast";
+import CreateModal from "./students/CreateModal";
+import StatCard from "./components/StatCard";
+import ActivityPanel from "./components/ActivityPanel";
+import QuickActions from "./components/QuickActions";
+import DashboardChat from "./components/DashboardChat";
+
 import { useAuth } from "../../hooks/useAuth";
-import CreateModal from "./students/CreateModal"; 
 import "./adminDashboard.css";
+
+
 
 const AdminDashboard = () => {
   const { user } = useAuth();
 
-  const hasPermission = (permission) => {
-    if (!user || !user.permissions) return false;
-    return user.permissions.includes(permission);
-  };
+  const [loading, setLoading] = useState(true);
 
-  const canViewDashboard = hasPermission("dashboard.view");
-  const canShowData = hasPermission("data.show");
+  const [showCreateModal, setShowCreateModal] = useState(false);
 
-  /* =====================================
-      STATE CONFIGURATION
-  ===================================== */
   const [metrics, setMetrics] = useState({
     total_students: 0,
-    total_classes: 0,
     total_departments: 0,
+    total_classes: 0,
     total_system_users: 0,
+
+    total_teachers: 0,
+    total_courses: 0,
+    total_assignments: 0,
+    total_assignment_submissions: 0,
   });
 
   const [departmentsList, setDepartmentsList] = useState([]);
+
   const [classesList, setClassesList] = useState([]);
-  const [loading, setLoading] = useState(true);
-  const [showCreateModal, setShowCreateModal] = useState(false);
 
-  // Normalize user roles to clean lowercase array strings for simple evaluation
-  const roleNames = [user?.role, user?.roles]
-    .flat()
-    .filter(Boolean)
-    .map((value) => String(value).toLowerCase());
+  // ===============================
+  // PERMISSION
+  // ===============================
+  const hasPermission = (permission) => {
+    return user?.permissions?.includes(permission) ?? false;
+  };
+  const canView = hasPermission("data.show");
+  // const canCreate = hasPermission("student.create");
+  // const canUpdate = hasPermission("student.update");
+  // const canDelete = hasPermission("student.delete");
+  const isAdmin = user?.roles?.includes("Admin");
+  const isTeacher = user?.roles?.includes("Teacher");
+  const isStudent = user?.roles?.includes("Student");
+  const getGreeting = () => {
+  const hour = new Date().getHours();
+  if(hour < 12){
+    return "Good Morning";
+  }
+  if(hour < 18){
 
-  const isAdmin = roleNames.includes("admin");
-  const isTeacher = roleNames.includes("teacher");
-  const isStudent = roleNames.includes("student");
+    return "Good Afternoon";
+  }
+  return "Good Evening";
 
-  /* =====================================
-      REAL-TIME DATA STREAM SYNC
-  ===================================== */
-  const fetchDashboardMetrics = async () => {
-    // FIX: Allow any authenticated system user (admin, teacher, or student) to view stats data
-    const canAccessMetrics = isAdmin || isTeacher || isStudent;
+};
 
-    if (!canAccessMetrics) {
-      setMetrics({ total_students: 0, total_departments: 0, total_classes: 0, total_system_users: 0 });
-      setDepartmentsList([]);
-      setClassesList([]);
-      setLoading(false);
-      return;
-    }
+  // ================================
+  // LOAD DASHBOARD DATA
+  // ================================
 
+  const fetchDashboard = async () => {
     try {
       setLoading(true);
+
       const response = await axios.get(
         "http://192.168.100.39:8000/api/web/dashboards",
+
         {
           headers: {
             Authorization: `Bearer ${localStorage.getItem("token")}`,
@@ -68,26 +80,34 @@ const AdminDashboard = () => {
       );
 
       if (response.data.success) {
-        const { metrics: apiMetrics, departments, classes } = response.data.data;
+        const data = response.data.data;
 
         setMetrics({
-          total_students: apiMetrics?.total_students || 0,
-          total_departments: apiMetrics?.total_departments || 0,
-          total_classes: apiMetrics?.total_classes || 0,
-          total_system_users: apiMetrics?.total_system_users || 0,
+          total_students: data.metrics.total_students || 0,
+
+          total_departments: data.metrics.total_departments || 0,
+
+          total_classes: data.metrics.total_classes || 0,
+
+          total_system_users: data.metrics.total_system_users || 0,
+
+          total_teachers: data.metrics.total_teachers || 0,
+
+          total_courses: data.metrics.total_courses || 0,
+
+          total_assignments: data.metrics.total_assignments || 0,
+
+          total_assignment_submissions: data.metrics.total_assignment_submissions || 0,
         });
 
-        setDepartmentsList(departments || []);
-        setClassesList(classes || []);
+        setDepartmentsList(data.departments || []);
+
+        setClassesList(data.classes || []);
       }
     } catch (error) {
-      console.error("Dashboard metric sync engine crash:", error);
-      setMetrics({ total_students: 0, total_departments: 0, total_classes: 0, total_system_users: 0 });
-      setDepartmentsList([]);
-      setClassesList([]);
-      if (error?.response?.status !== 403) {
-        toast.error("Failed to fetch live database statistics.");
-      }
+      console.log(error);
+
+      toast.error("Cannot load dashboard data");
     } finally {
       setLoading(false);
     }
@@ -95,147 +115,196 @@ const AdminDashboard = () => {
 
   useEffect(() => {
     if (user) {
-      fetchDashboardMetrics();
+      fetchDashboard();
     }
   }, [user]);
 
-  /* =====================================
-      DYNAMIC WELCOME BANNER UTILS
-  ===================================== */
-  const getWelcomeMessage = () => {
-    if (isAdmin) return "Welcome back, Administrative Admin! 👑";
-    if (isTeacher) return "Welcome back, Professor! 👨‍🏫";
-    return "Welcome back to your Portal! 🎓";
+  const welcomeText = () => {
+    if (isAdmin) return "Welcome back, Administrator 👑";
+
+    if (isTeacher) return "Welcome back, Professor 👨‍🏫";
+
+    if (isStudent) return "Welcome back, Student 🎓";
+
+    return "Welcome back";
   };
 
-  /* =====================================
-      UI CARD LAYOUT OBJECT MAP
-  ===================================== */
-  const statsLayout = [
+  const cards = [
     {
-      title: "Total Students",
-      count: loading ? "..." : metrics.total_students,
-      icon: "👨‍Grad",
-      color: "#4f46e5",
+      title: "Students",
+      value: metrics.total_students,
+      icon: "👨‍🎓",
     },
+
+    {
+      title: "Teachers",
+      value: metrics.total_teachers,
+      icon: "👨‍🏫",
+    },
+
     {
       title: "Departments",
-      count: loading ? "..." : metrics.total_departments,
+      value: metrics.total_departments,
       icon: "🏢",
-      color: "#06b6d4",
     },
+
     {
-      title: "Active Classes",
-      count: loading ? "..." : metrics.total_classes,
-      icon: "📅",
-      color: "#10b981",
+      title: "Courses",
+      value: metrics.total_courses,
+      icon: "📚",
     },
+
     {
-      title: "System Operators",
-      count: loading ? "..." : metrics.total_system_users,
+      title: "Classes",
+      value: metrics.total_classes,
       icon: "🏫",
-      color: "#f59e0b",
+    },
+
+    {
+      title: "Assignments",
+      value: metrics.total_assignments,
+      icon: "📝",
+    },
+
+    {
+      title: "Submissions",
+      value: metrics.total_assignment_submissions,
+      icon: "📤",
+    },
+
+    {
+      title: "System Users",
+      value: metrics.total_system_users,
+      icon: "👥",
     },
   ];
 
   return (
-    <div className="dashboard-view-container">
+    <div className="dashboard-container">
       <Toaster position="top-right" />
 
-      {/* Dynamic Welcome Banner Row */}
-      <div className="dashboard-welcome-banner">
-        <h1>{getWelcomeMessage()}</h1>
-        <p>
-          Logged in as: <strong>{user?.username || user?.name || "User"}</strong> (
-          {user?.email || "No email handle bound"})
-        </p>
-      </div>
+      {/* HEADER */}
 
-      {/* Grid Row Metrics Section Cards */}
-      {canShowData && (
-        <div className="stats-grid-row">
-            {statsLayout.map((item, index) => (
-              <div key={index} className="metric-card-box">
-                <div className="metric-card-body">
-                  <div className="metric-info">
-                    <span className="metric-title">{item.title}</span>
-                    <span className="metric-counter">{item.count}</span>
-                  </div>
-                  <div
-                    className="metric-icon-avatar"
-                    style={{
-                      backgroundColor: `${item.color}15`,
-                      color: item.color,
-                    }}
-                  >
-                    {item.icon}
-                  </div>
-                </div>
-                <div
-                  className="metric-card-footer"
-                  style={{ borderLeft: `4px solid ${item.color}` }}
-                >
-                  <span>Live System Metrics Status Active</span>
-                </div>
-              </div>
-            ))}
-        </div>
-      )}
-
-      {/* Split Details Section */}
-      <div className="dashboard-details-split">
-        {/* Activity Stream */}
-        <div className="activity-panel-card">
-          <h3>Recent System Activity</h3>
-          <ul className="activity-list-tree">
-            <li>
-              <span className="activity-time">Just Now</span>
-              <p>New attendance scan recorded in <strong>Room 302</strong></p>
-            </li>
-            <li>
-              <span className="activity-time">10 mins ago</span>
-              <p>Assignment submission updated for <strong>Advanced Mobile App Development</strong></p>
-            </li>
-            <li>
-              <span className="activity-time">1 hour ago</span>
-              <p>Department configuration modified for <strong>Computer Science Group</strong></p>
-            </li>
-          </ul>
-        </div>
-
-        {/* Shortcut Action Controls Panel (Context-aware layout values) */}
-        <div className="activity-panel-card shortcut-panel">
-          <h3>Quick Actions</h3>
+      <section className="dashboard-header">
+        <div className="welcome-area">
+          <h1>
+            {welcomeText()}
+          </h1>
+          <h2>
+            {getGreeting()}, <span>{user?.username || "User"}</span>
+          </h2>
           <p>
-            {isAdmin 
-              ? "Administrative shortcut controls mapped directly to your routing profiles."
-              : "Portal shortcut controls mapped to your current role workspace."
-            }
+            Manage your University Track system
           </p>
-          <div className="action-button-group">
-            {/* FIX: Hide administrative functional adjustments from students/teachers */}
-            {isAdmin && (
-              <button
-                className="dashboard-action-btn"
-                onClick={() => setShowCreateModal(true)}
-              >
-                Add New Student Profile
-              </button>
-            )}
-            <button className="dashboard-action-btn variant-secondary">
-              {isAdmin || isTeacher ? "Modify Subject Schedule" : "View My Schedule Calendar"}
-            </button>
+          <div className="student-information">
+            <div className="info-row">
+              <span>
+                ID:
+                <strong>
+                  {" "}
+                  {user?.student?.student_code || "N/A"}
+                </strong>
+              </span>
+              <span>
+                •
+              </span>
+              <span>
+                {
+                  user?.student?.department?.department_name_english
+                  ||
+                  "Software Development"
+                }
+              </span>
+              <span>
+                •
+              </span>
+              <span>
+                {
+                  user?.student?.classes?.class_name
+                  ||
+                  "Com3ES2"
+                }
+              </span>
+            </div>
+
+            <div className="academic-info">
+              <span>
+                Academic Year:
+                <strong>
+                  {" "}
+                  {
+                    user?.student?.academic_year
+                    ||
+                    "2025-2026"
+                  }
+                </strong>
+              </span>
+
+
+
+              <span>
+                Semester:
+                <strong>
+                  {" "}
+                  {
+                    user?.student?.semester?.semester_name
+                    ||
+                    "2"
+                  }
+                </strong>
+              </span>
+
+
+            </div>
+
+
           </div>
         </div>
-      </div>
 
-      {/* Conditional Create Student Modal Wrapper */}
+
+
+        <div className="profile-mini">
+          <span>
+            📅 {new Date().toLocaleDateString(
+              "en-US",
+              {
+                weekday:"long",
+                year:"numeric",
+                month:"long",
+                day:"numeric"
+              }
+            )}
+          </span>
+        </div>
+      </section>
+      {/* STATISTICS */}
+      {canView && (
+        <section className="stats-grid">
+          {cards.map((item, index) => (
+            <StatCard key={index} {...item} loading={loading} />
+          ))}
+        </section>
+      )}
+      {/* CONTENT */}
+      <section className="dashboard-columns">
+        <ActivityPanel />
+
+        <QuickActions
+          isAdmin={isAdmin}
+          setShowCreateModal={setShowCreateModal}
+        />
+      </section>
+
+      {/* AI CHAT */}
+
+      <DashboardChat />
+
       {showCreateModal && isAdmin && (
         <CreateModal
           departments={departmentsList}
           classes={classesList}
           onClose={() => setShowCreateModal(false)}
-          onSuccess={fetchDashboardMetrics} 
+          onSuccess={fetchDashboard}
         />
       )}
     </div>

@@ -43,6 +43,8 @@ const Index = () => {
 
   const canDelete = hasPermission("assignment.delete");
 
+  const canData = hasPermission("assignment.data");
+
   // ===============================
   // API
   // ===============================
@@ -160,12 +162,11 @@ const Index = () => {
     );
   });
 
+  
   return (
     <div className="assignment-page-wrapper">
       <Toaster position="top-right" />
-
       {/* HEADER */}
-
       <div className="assignment-header-panel">
         <div>
           <h2>📝 Assignment Management</h2>
@@ -195,114 +196,116 @@ const Index = () => {
       </div>
 
       {/* TABLE */}
-
-      <div className="table-container-card">
-        {loading ? (
-          <div className="loading">Loading assignments...</div>
-        ) : (
-          <table className="assignment-table">
-            <thead>
-              <tr>
-                <th>Code</th>
-
-                <th>Title</th>
-
-                <th>Course</th>
-
-                <th>Teacher</th>
-
-                <th>Due Date</th>
-
-                <th>Score</th>
-
-                <th>Status</th>
-
-                <th>Action</th>
-              </tr>
-            </thead>
-
-            <tbody>
-              {filteredAssignments.length > 0 ? (
-                filteredAssignments.map((assignment) => (
-                  <tr key={assignment.id}>
-                    <td>
-                      <strong>{assignment.assignment_code}</strong>
-                    </td>
-
-                    <td
-                      className="clickable-name"
-                      onClick={() => {
-                        setActiveAssignment(assignment);
-
-                        setModalType("show");
-                      }}
-                    >
-                      {assignment.title}
-                    </td>
-
-                    <td>{assignment.course?.course_name}</td>
-
-                    <td>
-                      {assignment.teacher?.first_name_english}{" "}
-                      {assignment.teacher?.last_name_english}
-                    </td>
-
-                    <td>{assignment.due_date}</td>
-
-                    <td>{assignment.total_score}</td>
-
-                    <td>
-                      <span
-                        className={`badge ${
-                          assignment.status === "Open"
-                            ? "bg-success"
-                            : "bg-danger"
-                        }`}
-                      >
-                        {assignment.status}
-                      </span>
-                    </td>
-
-                    <td>
-                      {canUpdate && (
-                        <button
-                          className="edit-btn"
-                          onClick={() => {
-                            setActiveAssignment(assignment);
-
-                            setModalType("update");
-                          }}
-                        >
-                          ✏️ Edit
-                        </button>
-                      )}
-
-                      {canDelete && (
-                        <button
-                          className="delete-btn"
-                          onClick={() =>
-                            handleDelete(
-                              assignment.id,
-
-                              assignment.title,
-                            )
-                          }
-                        >
-                          🗑 Delete
-                        </button>
-                      )}
-                    </td>
-                  </tr>
-                ))
-              ) : (
+      {canData && (
+          <div className="table-container-card">
+          {loading ? (
+            <div className="loading">Loading assignments...</div>
+          ) : (
+            <table className="assignment-table">
+              <thead>
                 <tr>
-                  <td colSpan="8">No assignment found</td>
+                  <th>Code</th>
+
+                  <th>Title</th>
+
+                  <th>Course</th>
+
+                  <th>Teacher</th>
+
+                  <th>Due Date</th>
+
+                  <th>Score</th>
+
+                  <th>Status</th>
+
+                  <th>Action</th>
                 </tr>
-              )}
-            </tbody>
-          </table>
-        )}
-      </div>
+              </thead>
+
+              <tbody>
+                {filteredAssignments.length > 0 ? (
+                  filteredAssignments.map((assignment) => (
+                    <tr key={assignment.id}>
+                      <td>
+                        <strong>{assignment.assignment_code}</strong>
+                      </td>
+
+                      <td
+                        className="clickable-name"
+                        onClick={() => {
+                          setActiveAssignment(assignment);
+
+                          setModalType("show");
+                        }}
+                      >
+                        {assignment.title}
+                      </td>
+
+                      <td>{assignment.course?.course_name}</td>
+
+                      <td>
+                        {assignment.teacher?.first_name_english}{" "}
+                        {assignment.teacher?.last_name_english}
+                      </td>
+
+                      <td>{assignment.due_date}</td>
+
+                      <td>{assignment.total_score}</td>
+
+                      <td>
+                        <span
+                          className={`badge ${
+                            assignment.status === "Open"
+                              ? "bg-success"
+                              : "bg-danger"
+                          }`}
+                        >
+                          {assignment.status}
+                        </span>
+                      </td>
+
+                      <td>
+                        {canUpdate && (
+                          <button
+                            className="edit-btn"
+                            onClick={() => {
+                              setActiveAssignment(assignment);
+
+                              setModalType("update");
+                            }}
+                          >
+                            ✏️ Edit
+                          </button>
+                        )}
+
+                        {canDelete && (
+                          <button
+                            className="delete-btn"
+                            onClick={() =>
+                              handleDelete(
+                                assignment.id,
+
+                                assignment.title,
+                              )
+                            }
+                          >
+                            🗑 Delete
+                          </button>
+                        )}
+                      </td>
+                    </tr>
+                  ))
+                ) : (
+                  <tr>
+                    <td colSpan="8">No assignment found</td>
+                  </tr>
+                )}
+              </tbody>
+            </table>
+          )}
+        </div>
+      )}
+      
 
       {/* CREATE */}
 
