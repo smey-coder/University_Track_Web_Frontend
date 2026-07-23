@@ -12,6 +12,8 @@ const UpdateModal = ({ assignment, onClose, onSuccess, toastStyles }) => {
 
   const [teachers, setTeachers] = useState([]);
 
+  const [classes, setClasses] = useState([]);
+
   const [filteredCourses, setFilteredCourses] = useState([]);
 
   const [loading, setLoading] = useState(false);
@@ -24,6 +26,12 @@ const UpdateModal = ({ assignment, onClose, onSuccess, toastStyles }) => {
     course_id: "",
 
     teacher_id: "",
+
+    class_id: "",
+
+    assignment_type: "",
+
+    submission_type: "Individual",
 
     title: "",
 
@@ -69,6 +77,12 @@ const UpdateModal = ({ assignment, onClose, onSuccess, toastStyles }) => {
 
         teacher_id: assignment.teacher_id,
 
+        class_id: assignment.class_id,
+
+        assignment_type: assignment.assignment_type,
+
+        submission_type: assignment.submission_type || "Individual",
+
         title: assignment.title,
 
         description: assignment.description || "",
@@ -95,9 +109,12 @@ const UpdateModal = ({ assignment, onClose, onSuccess, toastStyles }) => {
 
         const allTeachers = response.data.teachers || [];
 
+        const allClasses = response.data.classes || [];
         setCourses(allCourses);
 
         setTeachers(allTeachers);
+
+        setClasses(allClasses);
 
         let teacherId;
 
@@ -179,9 +196,15 @@ const UpdateModal = ({ assignment, onClose, onSuccess, toastStyles }) => {
       const payload = {
         course_id: form.course_id,
 
+        class_id: form.class_id,
+
         ...(isAdmin && {
           teacher_id: form.teacher_id,
         }),
+
+        assignment_type: form.assignment_type,
+
+        submission_type: form.submission_type,
 
         title: form.title,
 
@@ -282,10 +305,43 @@ const UpdateModal = ({ assignment, onClose, onSuccess, toastStyles }) => {
               </select>
             </div>
           )}
+          <div className="form-group">
+            <label>📝 Assignment Type</label>
+
+            <select
+              name="assignment_type"
+              value={form.assignment_type}
+              onChange={handleChange}
+              required
+            >
+              <option value="">Select Type</option>
+
+              <option value="Homework">📚 Homework</option>
+
+              <option value="Assignment">📝 Assignment</option>
+
+              <option value="Quiz">❓ Quiz</option>
+
+              <option value="Project">🚀 Project</option>
+
+              <option value="Orther">📌 Other</option>
+            </select>
+          </div>
+          <div className="form-group">
+            <label>Submission Type</label>
+
+            <select
+              name="submission_type"
+              value={form.submission_type}
+              onChange={handleChange}
+            >
+              <option value="Individual">Individual</option>
+              <option value="Group">Group</option>
+            </select>
+          </div>
 
           <div className="form-group">
             <label>Course</label>
-
             <select
               name="course_id"
               value={form.course_id}
@@ -297,6 +353,25 @@ const UpdateModal = ({ assignment, onClose, onSuccess, toastStyles }) => {
               {filteredCourses.map((course) => (
                 <option key={course.id} value={course.id}>
                   {course.course_code}-{course.course_name}
+                </option>
+              ))}
+            </select>
+          </div>
+
+          <div className="form-group">
+            <label>🏫 Class</label>
+
+            <select
+              name="class_id"
+              value={form.class_id}
+              onChange={handleChange}
+              required
+            >
+              <option value="">Select Class</option>
+
+              {classes.map((item) => (
+                <option key={item.id} value={item.id}>
+                  {item.class_name}
                 </option>
               ))}
             </select>

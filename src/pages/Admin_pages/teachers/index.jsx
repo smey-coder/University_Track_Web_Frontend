@@ -13,6 +13,13 @@ const API_URL = "http://192.168.100.39:8000/api/web";
 
 const Index = () => {
 
+    const printTeacherList = () => {
+        window.open(
+            "http://192.168.100.39:8000/api/web/teachers/report",
+            "_blank"
+        );
+    };
+
     /* =====================================
         STATES
     ===================================== */
@@ -234,6 +241,12 @@ const Index = () => {
                     ➕ Add Teacher
                 </button>
             </div>
+            <button
+                    className="btn-print"
+                    onClick={printTeacherList}
+                >
+                    🖨 Print Teacher Report
+            </button>
 
             {/* ===========================
                 FILTERS PANEL

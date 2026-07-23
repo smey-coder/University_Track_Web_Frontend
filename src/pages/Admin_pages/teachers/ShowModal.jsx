@@ -1,6 +1,19 @@
 import React from "react";
 
+
+
 const ShowModal = ({ teacher = {}, onClose }) => {
+  const printProfile = () => {
+
+      const token = localStorage.getItem("token");
+
+
+      window.open(
+          `http://192.168.100.39:8000/api/web/teachers/${teacher.id}/report?token=${token}`,
+          "_blank"
+      );
+
+  };
   /* =====================================
       FALLBACK FOR EMPTY TEACHER OBJECT
   ===================================== */
@@ -39,6 +52,12 @@ const ShowModal = ({ teacher = {}, onClose }) => {
             <h2>Teacher Profile Sheet</h2>
             <p>System Record Identification: #{teacher.id}</p>
           </div>
+           <button
+                className="btn-print"
+                onClick={printProfile}
+            >
+                🖨 Print
+            </button>
           <span
             className={`status-badge ${teacher.status?.toLowerCase() === "active" ? "active" : "suspended"}`}
           >
